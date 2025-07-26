@@ -98,7 +98,8 @@
     "district": "ເມືອງ",
     "actions": "ການດໍາເນີນງານ",
     "updatedAt": "ວັນທີແກ້ໄຂ",
-    "createdAt": "ວັນທີສ້າງ"
+    "createdAt": "ວັນທີສ້າງ",
+    "index":"ລຳດັບ"
   },
   "common": {
     "yes": "ຕົກລົງ",

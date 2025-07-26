@@ -69,6 +69,12 @@ export default class RoleFormService {
     };
 
     this.columns = [
+            {
+        title: this.t("table.index"),
+        key: "idex",
+        fixed: "left",
+        width: 70,
+      },
       {
         title: this.t("table.id"),
         dataIndex: "id",
@@ -117,7 +123,7 @@ export default class RoleFormService {
         title: this.t("table.action"),
         key: "action",
         fixed: "right",
-        width: 170,
+        width: 140,
       },
     ];
   }

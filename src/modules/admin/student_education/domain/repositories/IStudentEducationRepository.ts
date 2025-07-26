@@ -9,7 +9,7 @@ export interface IStudentEducationRepository {
   update(data:UpdateStudentEducationModel): Promise<FindStudentEducationModel>
   delete(id: number, type: DeleteType): Promise<string>
   restore(id: number): Promise<string>
-  // findone():Promise<string>
+  // findone():Promise<FindStudentEducationModel>
   findAll(query: IPaginationQuery): Promise<IResponse<FindStudentEducationModel>> 
 
 }

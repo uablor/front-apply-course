@@ -1,15 +1,43 @@
 <template>
-    <a-layout style="min-height: 100vh">
-        <a-layout-sider v-model:collapsed="collapsed" :trigger="null" collapsible style="background: #fff">
+    <a-layout style="min-height: 100vh; transition: all 0.3s ease  ;" >
+        <a-layout-sider 
+            v-model:collapsed="collapsed" 
+            :trigger="null" 
+            collapsible 
+            style="
+                background: #fff; 
+                position: fixed; 
+                left: 0; 
+                top: 0; 
+                height: 100vh; 
+                z-index: 100;
+                overflow-y: auto;
+                transition: all 0.3s ease;
+            "
+        >
             <SidebarComponent />
         </a-layout-sider>
-        <a-layout>
-            <NavbarComponent @toggle-sidebar="() => (collapsed = !collapsed)" />
+        <a-layout :style="{ marginLeft: collapsed ? '80px' : '200px' }">
+            <NavbarComponent 
+                @toggle-sidebar="() => (collapsed = !collapsed)" 
+                :style="{
+                    position: 'fixed',
+                    top: 0,
+                    right: 0,
+                    left: collapsed ? '80px' : '200px',
+                    zIndex: 99,
+                    background: '#fff',
+                    borderBottom: '1px solid #f0f0f0',
+                    transition: 'left 0.2s'
+                }"
+            />
             <a-layout-content :style="{
                 margin: '10px 10px',
+                marginTop: '74px',
                 padding: '24px',
                 background: '#fff',
-                minHeight: '280px',
+                minHeight: 'calc(100vh - 84px)',
+                overflow: 'auto'
             }">
                 <router-view />
             </a-layout-content>
@@ -46,4 +74,10 @@ const collapsed = ref<boolean>(false);
 .site-layout .site-layout-background {
     background: #fff;
 }
+
+.ant-layout-sider {
+    transition: all 0.2s;
+}
+
+
 </style>

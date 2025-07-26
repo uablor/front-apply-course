@@ -10,7 +10,7 @@ import type { Rule } from "ant-design-vue/es/form";
 import { container } from "tsyringe";
 import { StudentFindAllUseCase } from "../usecases/query/get-all.use-case";
 import { type IPaginationQuery } from "@/domain/models/IPaginationQuery.interface";
-import type { CreateStudentModel } from "../domain/models/student.model";
+import type { CreateStudentModel, FindStudentModel } from "../domain/models/student.model";
 import dayjs from "dayjs";
 import { DeleteType } from "@/shared/enums/deletetype.enum";
 import { ProvinceFindAllUseCase } from "../usecases/query/get-all-province.use-case";
@@ -23,6 +23,8 @@ import type { AxiosError } from "axios";
 import type { IErrorResponse } from "@/domain/models/IErrorResponse.interface";
 import { StudentDeleteUseCase } from "../usecases/command/delete-student.use-case";
 import { RestoreStudentUseCase } from "../usecases/command/restore-student.use-case";
+import router from "@/router";
+import { StudentFindOneUseCase } from "../usecases/query/find-one.use-case";
 
 @injectable()
 export default class StudentFormService {
@@ -37,6 +39,8 @@ export default class StudentFormService {
   create_loading = ref<boolean>(false);
   update_loading = ref<boolean>(false);
   isDeleting = ref<boolean>(false);
+  isLoding_findone = ref<boolean>(false);
+  error_findone = ref<boolean>(false);
 
   rules: Record<string, Rule[]>;
   formRef = ref<FormInstance | null>(null);
@@ -71,6 +75,9 @@ export default class StudentFormService {
     ),
     private readonly _restoreStudentUseCase = container.resolve(
       RestoreStudentUseCase
+    ),
+    private readonly _findOneStudentUseCase = container.resolve(
+      StudentFindOneUseCase
     )
   ) {
     const { t } = useI18n();
@@ -94,12 +101,24 @@ export default class StudentFormService {
 
     this.columns = [
       {
-        title: this.t("table.id"),
-        dataIndex: "id",
-        key: "id",
+        title: this.t("ລາຍລະອຽດ"),
+        key: "detial",
         fixed: "left",
-        width: 60,
+        width: 100,
       },
+      {
+        title: this.t("table.index"),
+        key: "index",
+        fixed: "left",
+        width: 70,
+      },
+      // {
+      //   title: this.t("table.id"),
+      //   dataIndex: "id",
+      //   key: "id",
+      //   fixed: "left",
+      //   width: 60,
+      // },
       {
         title: this.t("table.name"),
         dataIndex: "name",
@@ -168,7 +187,7 @@ export default class StudentFormService {
         title: this.t("table.action"),
         key: "action",
         fixed: "right",
-        width: 170,
+        width: 190,
       },
     ];
   }
@@ -405,7 +424,6 @@ export default class StudentFormService {
       const response = await this._provinceFindAllUseCase.execute();
       this.store.address.province = response;
     } catch (err: any) {
-      message.error("ໂຫຼດຂໍ້ມູນບໍ່ສຳເລັດ");
     } finally {
       this.find_loading.value = false;
     }
@@ -425,5 +443,27 @@ export default class StudentFormService {
     }
   }
   cancel_restore = async () => {
+  }
+
+  viewStudent = (id : number) =>{
+    router.push({
+      name : 'admin.student.profile',
+      query: {
+    id: id
+    }
+    })
+  }
+
+  findOneStudent = async (id : number) => {
+    try{
+      this.isLoding_findone.value = true;
+      const res = await this._findOneStudentUseCase.execute(id);
+      this.store.student.data = res;
+      message.success('ໂຫຼດຂໍ້ມູນສຳເລັດ')
+    }catch(err){
+      message.error("ໂຫຼດຂໍ້ມູນບໍ່ສຳເລັດ")
+    }finally{
+      this.isLoding_findone.value = false;
+    }
   }
 }

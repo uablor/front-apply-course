@@ -19,8 +19,6 @@ export function useEmailVerification() {
   const verifyEmail = async (token: string) => {
     try {
       status.value = 'verifying';
-      await new Promise((r) => setTimeout(r, 2000));
-
       const response = await fetch('/api/email/verify', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

@@ -10,6 +10,14 @@ export const studentRoutes: RouteRecordRaw[] = [
       guestOnly: true
     }
   },
+  {
+    path: 'student/profile',
+    name: 'admin.student.profile',
+    component: () => import('../views/Profile/Profile.vue'),
+    meta: {
+      guestOnly: true
+    }
+  },
 
   {
     path: 'studdfdfent',

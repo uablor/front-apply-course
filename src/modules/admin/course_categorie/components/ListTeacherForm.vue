@@ -12,8 +12,13 @@
       </template>
     </template>
 
-    <template #bodyCell="{ column, record }">
-      
+    <template #bodyCell="{ column, record,index }">
+
+
+
+      <template v-if="column.key === 'idex'">
+        <span>{{ index  + 1  }}</span>
+      </template>
 
       <template v-if="column.key === 'updatedAt'">
         <span>{{ record.updatedAt || '-' }}</span>

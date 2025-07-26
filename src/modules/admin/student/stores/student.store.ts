@@ -2,7 +2,7 @@
 import { defineStore } from "pinia";
 import { reactive } from "vue";
 import type { IResponse } from "@/domain/interfaces/Ipagination.interface";
-import type { FindStudentModel } from "../domain/models/student.model";
+import type { FindOneStudentModel, FindStudentModel } from "../domain/models/student.model";
 import {
   GetType,
   sortType,
@@ -37,9 +37,14 @@ export const useCustomerStore = defineStore("use-student-store", () => {
     is_active: Status.ACTIVE,
   });
 
+  const student = reactive<{ data: FindOneStudentModel | null }>({
+    data: null
+  });
+
   return {
     state,
     query,
-    address
+    address,
+    student
   };
 });

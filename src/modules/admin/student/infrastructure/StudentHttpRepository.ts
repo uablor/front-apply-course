@@ -3,7 +3,7 @@ import { inject, injectable } from "tsyringe";
 import type { IStudentRepository } from "../domain/repositories/IStudentRepository";
 import type { IPaginationQuery } from "@/domain/models/IPaginationQuery.interface";
 import type { IResponse } from "@/domain/interfaces/Ipagination.interface";
-import type { CreateStudentModel, FindStudentModel, UpdateStudentModel } from "../domain/models/student.model";
+import type { CreateStudentModel, FindOneStudentModel, FindStudentModel, UpdateStudentModel } from "../domain/models/student.model";
 import type { DeleteType } from "@/shared/enums/deletetype.enum";
 
 @injectable()
@@ -36,8 +36,8 @@ export class StudentHttpRepository implements IStudentRepository {
   }
 
 
-  async findone(): Promise<string> {
-    const res = await this._api.axios.post("/auth/refresh");
+  async findone(id:number): Promise<FindOneStudentModel> {
+    const res = await this._api.axios.post("/student/"+id);
     return res.data.token;
   }
 

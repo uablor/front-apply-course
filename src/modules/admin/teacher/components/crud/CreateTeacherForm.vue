@@ -8,8 +8,9 @@
   </a-button>
 
   <a-modal v-model:open="service.open_create.value" :title="$t('teacher.modal_title')" @ok="service.create"
-    @cancel="() => (service.open_create.value = false, service.resetForm())" :confirm-loading="service.creat_loading.value" :ok-text="$t('common.submit')"
-    :cancel-text="$t('common.cancel')" width="550px">
+    @cancel="() => (service.open_create.value = false, service.resetForm())"
+    :confirm-loading="service.creat_loading.value" :ok-text="$t('common.submit')" :cancel-text="$t('common.cancel')"
+    width="550px" centered>
 
     <a-form ref="formRef" :model="service.form_create" :rules="service.rules" layout="vertical" class="student-form">
 
@@ -42,7 +43,7 @@
         </a-row>
       </div>
 
-      <a-divider />
+      <!-- <a-divider /> -->
       <div>
         <h3 class="section-title">
           <LockOutlined />
@@ -73,7 +74,7 @@
         </a-row>
       </div>
 
-      <a-divider />
+      <!-- <a-divider /> -->
       <div>
         <h3 class="section-title">
           <BookOutlined class="section-icon" />
@@ -93,11 +94,17 @@
 
           <a-col :xs="24" :sm="12">
             <a-form-item name="experience" :label="$t('teacher.experience')">
-              <a-input v-model:value="service.form_create.experience" size="large" placeholder="Enter experience">
-                <template #prefix>
-                  <TrophyOutlined />
-                </template>
-              </a-input>
+              <a-input-group compact>
+                <!-- <a-space-compact block> -->
+                <a-input-number v-model:value="service.form_create.experience" size="large"
+                  placeholder="Enter experience " addonAfter="Year">
+                  <template #prefix>
+                    <TrophyOutlined />
+                  </template>
+                </a-input-number>
+                <!-- <a-button type="primary">Year</a-button>
+                </a-space-compact> -->
+              </a-input-group>
             </a-form-item>
           </a-col>
         </a-row>

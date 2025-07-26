@@ -87,6 +87,7 @@ export default class StudentFormService {
         { min: 6, message: t("validation.password_min") },
       ],
       specialization: [
+        { type: "number", message: t("validation.valid_specialization") },
         { required: true, message: t("validation.required_specialization") },
       ],
       experience: [
@@ -98,6 +99,12 @@ export default class StudentFormService {
     };
 
     this.columns = [
+      {
+        title: this.t("table.index"),
+        key: "idex",
+        fixed: "left",
+        width: 70,
+      },
       {
         title: this.t("table.id"),
         dataIndex: "id",
@@ -380,5 +387,5 @@ export default class StudentFormService {
       this.isDeleting.value = false;
     }
   };
-  cancel_restore = async () => {};
+  cancel_restore = async () => { };
 }

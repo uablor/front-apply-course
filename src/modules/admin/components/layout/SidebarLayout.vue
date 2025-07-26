@@ -1,6 +1,6 @@
 <template>
     <div class="logo">
-        <img src="https://tse3.mm.bing.net/th/id/OIP.j_kxQoi5DYE3XA35JZRenAHaHa" />
+        <img src="@/assets/images/logo/image.png" />
     </div>
 
     <a-menu v-model:selectedKeys="selectedKeys" v-model:openKeys="openKeys" class="sidebar-menu" mode="inline">

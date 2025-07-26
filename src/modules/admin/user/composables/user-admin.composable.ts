@@ -98,6 +98,12 @@ export default class StudentFormService {
     };
 
     this.columns = [
+            {
+        title: this.t("table.index"),
+        key: "idex",
+        fixed: "left",
+        width: 70,
+      },
       {
         title: this.t("table.id"),
         dataIndex: "id",

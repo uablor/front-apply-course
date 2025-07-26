@@ -12,8 +12,23 @@
       </template>
     </template>
 
-    <template #bodyCell="{ column, record }">
+    <template #bodyCell="{ column, record,index }">
 
+<template v-if="column.key === 'detial'" >
+  <div style="display: flex; justify-content: center; cursor: pointer; align-items: center">
+  <a-tooltip title="ໂປຣໄຟ" @click="customerList.viewStudent(record.id)" >
+    <EyeOutlined
+      style="cursor: pointer; font-size: 20px;"
+      @mouseover="hoveredRow = index"
+      @mouseleave="hoveredRow = null"
+      :style="{ color: hoveredRow === index ? '#1890ff' : '' }"
+    />
+  </a-tooltip>
+  </div>
+</template>
+      <template v-if="column.key === 'index'">
+        <span> {{ index  + 1  }}</span>
+      </template>
 
 
       <template v-if="column.key === 'birth_date'">
@@ -41,7 +56,8 @@
         <span class="table-action">
 
           <div v-if="store.query.is_active === Status.ACTIVE">
-            <a-button type="primary" ghost @click="() => customerList.showModal(record)">{{ $t('common.edit')
+            <a-button type="primary" ghost @click="() => customerList.showModal(record)">
+              <EditOutlined/>{{ $t('common.edit')
             }}</a-button>
           </div>
           <div v-if="store.query.is_active === Status.INACTIVE">
@@ -75,14 +91,18 @@
 </template>
 <script lang="ts" setup>
 
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import { container } from 'tsyringe';
+import {  EyeOutlined, 
+  EditOutlined, 
+  DeleteOutlined } from '@ant-design/icons-vue';
 import DeleteComponent from './crud/Delete.component.vue';
 import { useCustomerStore } from '../stores/student.store';
 import StudentFormService from '../composables/student.composable';
 import UpdateStudentForm from './crud/UpdateStudentForm.vue';
 import { DeleteType } from '@/shared/enums/deletetype.enum';
 import { Status } from '@/shared/enums/pagination.query.enum';
+const hoveredRow = ref<number | null>(null);
 
 const store = useCustomerStore();
 const customerList = container.resolve(StudentFormService);

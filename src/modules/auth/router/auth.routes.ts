@@ -47,4 +47,12 @@ export const authRoutes: RouteRecordRaw[] = [
       skipAuthCheck: true,
     },
   },
+  {
+    path: "/token-expired",
+    name: "auth.token-expired",
+    component: () => import("@/modules/auth/views/token-wrranig/Token-expired.vue"),
+    meta: {
+      skipAuthCheck: true,
+    },
+  },
 ];

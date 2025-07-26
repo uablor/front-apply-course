@@ -12,8 +12,13 @@
       </template>
     </template>
 
-    <template #bodyCell="{ column, record }">
+    <template #bodyCell="{ column, record,index }">
 
+
+
+      <template v-if="column.key === 'idex'">
+        <span>{{ index  + 1  }}</span>
+      </template>
 
 
 
@@ -112,7 +117,7 @@ onMounted(async () => {
 
 .table-action {
   display: flex;
-  justify-content: center;
+  justify-content: left;
   gap: 10px;
 }
 
