@@ -10,48 +10,29 @@ export class StudentEducationHttpRepository implements IStudentEducationReposito
   constructor(@inject(AxiosApi) private readonly _api: AxiosApi) {}
 
   async create(payload: CreateStudentEducationModel): Promise<string> {
-      const res = await this._api.axios.post("/teacher", payload);
+      const res = await this._api.axios.post("/education", payload);
       return res.data;
   }
 
   async update(data: UpdateStudentEducationModel): Promise<FindStudentEducationModel> {
     const { id, ...rest } = data;
     console.log(id, rest);
-    const res = await this._api.axios.patch("/teacher/" + id, rest);
+    const res = await this._api.axios.patch("/education/" + id, rest);
     return res.data;
   }
 
 
   async delete(id: number, type: DeleteType): Promise<string> {
-    const res = await this._api.axios.delete(`/teacher/${type}/${id}`);
+    const res = await this._api.axios.delete(`/education/${type}/${id}`);
     return res.data;
   }
   async restore(id: number): Promise<string> {
-    const res = await this._api.axios.patch(`/teacher/restore/${id}`);
+    const res = await this._api.axios.patch(`/education/restore/${id}`);
     return res.data;
   }
-
-
-//   async findone(): Promise<string> {
-//     const res = await this._api.axios.post("/auth/refresh");
-//     return res.data.token;
-//   }
-
   async findAll(query: IPaginationQuery): Promise<IResponse<FindStudentEducationModel>> {
-    const res = await this._api.axios.get("/teacher", { params: query  });
-    // console.log("asdfadsf",res.data);
+    const res = await this._api.axios.get("/education", { params: query  });
     return res.data;
   }
 
-//   async findAllProvince(): Promise<[]> {
-//     const res = await this._api.axios.get("/province");
-//     return res.data;
-//   }
-
-//   async findAllDistrict(id: number): Promise<[]> {
-//     console.log("asdfadsf",id);
-//     const res = await this._api.axios.get("/district/" ,{ params: {id } });
-//     console.log("asdfadsf",res.data);
-//     return res.data;
-//   }
 }

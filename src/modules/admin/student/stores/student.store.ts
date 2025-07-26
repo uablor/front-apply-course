@@ -37,14 +37,11 @@ export const useCustomerStore = defineStore("use-student-store", () => {
     is_active: Status.ACTIVE,
   });
 
-  const student = reactive<{ data: FindOneStudentModel | null }>({
-    data: null
-  });
+
 
   return {
     state,
     query,
     address,
-    student
   };
 });

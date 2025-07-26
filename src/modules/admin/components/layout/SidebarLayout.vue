@@ -80,8 +80,8 @@ const routeToSubmenuMap: Record<string, string> = {
     'admin.permission': '/admin/user/admin',
     'admin.course': '/admin/course_categorie',
     'admin.course_categorie': '/admin/course_categorie',
-    // 'admin.apply_course': 'apply',
-    // 'admin.completion_record': 'apply'
+    'admin.apply_course': 'apply',
+    'admin.completion_record': 'apply'
 };
 
 watch(

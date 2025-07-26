@@ -97,7 +97,8 @@
               <a-input-group compact>
                 <!-- <a-space-compact block> -->
                 <a-input-number v-model:value="service.form_create.experience" size="large"
-                  placeholder="Enter experience " addonAfter="Year">
+                  placeholder="Enter experience " addonAfter="Year" @focus="service.onExperienceFocus"
+                  @blur="service.onExperienceBlur">
                   <template #prefix>
                     <TrophyOutlined />
                   </template>
@@ -128,7 +129,7 @@
 import { ref, onMounted } from 'vue';
 import { container } from 'tsyringe';
 import type { FormInstance } from 'ant-design-vue';
-import StudentFormService from '../../composables/teacher.composable';
+import TeacherFormService from '../../composables/teacher.composable';
 import { Gender } from '@/shared/enums/gender.enum';
 import { useTeacherStore } from '../../stores/use-teacher.store';
 import {
@@ -144,8 +145,9 @@ import {
 } from '@ant-design/icons-vue';
 
 const store = useTeacherStore();
-const service = container.resolve(StudentFormService);
+const service = container.resolve(TeacherFormService);
 const formRef = ref<FormInstance | null>(null);
+
 
 onMounted(() => {
   service.formRef = formRef;

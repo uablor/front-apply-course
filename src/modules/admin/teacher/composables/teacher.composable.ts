@@ -33,7 +33,7 @@ import { TeacherUpdateUseCase } from "../usecases/command/update-teacher.use-cas
 // import { RestoreStudentUseCase } from "../usecases/command/restore-student.use-case";
 
 @injectable()
-export default class StudentFormService {
+export default class TeacherFormService {
   t = useI18n().t;
   store = useTeacherStore();
 
@@ -196,7 +196,7 @@ export default class StudentFormService {
     name: "",
     surname: "",
     specialization: "",
-    experience: 0,
+    experience: 0 ,
     education: "",
   });
 
@@ -387,5 +387,22 @@ export default class StudentFormService {
       this.isDeleting.value = false;
     }
   };
-  cancel_restore = async () => { };
+  cancel_restore = async () => {};
+
+  experienceToSubmit = this.form_create.experience ?? 0;
+
+  originalExperience = ref(0);
+  onExperienceFocus = () => {
+    if (this.form_create.experience === 0) {
+      this.form_create.experience = null;
+    }
+  };
+
+  onExperienceBlur = () => {
+    if (
+      this.form_create.experience === null
+    ) {
+      this.form_create.experience = this.originalExperience.value;
+    }
+  };
 }

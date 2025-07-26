@@ -20,20 +20,6 @@
                         <p class="confirm-text">{{ $t('student.confirm_delete_message') }}</p>
 
                         <div class="delete-options">
-                            <div class="option-card" :class="{ active: !composable.isHardDelete?.value }"
-                                v-if="store.query.is_active === Status.ACTIVE">
-                                <a-radio :checked="!composable.isHardDelete?.value"
-                                    @change="composable.toggleSoftDelete" class="delete-radio">
-                                    <div class="option-content">
-                                        <div class="option-header">
-                                            <RestOutlined class="option-icon soft" />
-                                            <span class="option-title">{{ $t('student.soft_delete') }}</span>
-                                        </div>
-                                        <span class="option-description">{{ $t('student.soft_delete_desc') }}</span>
-                                    </div>
-                                </a-radio>
-                            </div>
-
                             <div class="option-card" :class="{ active: composable.isHardDelete?.value }">
                                 <a-radio :checked="composable.isHardDelete?.value" @change="composable.toggleHardDelete"
                                     class="delete-radio">
@@ -81,15 +67,14 @@ import {
     ExclamationCircleOutlined,
     RestOutlined
 } from '@ant-design/icons-vue'
-import type StudentFormService from '../../composables/studenteducation.composable'
-
 import { Status } from '@/shared/enums/pagination.query.enum';
 import { useStudentEducationStore } from '../../stores/use-student-education.store';
+import type StudentEducationFormService from '../../composables/studenteducation.composable';
 
 const store = useStudentEducationStore()
 
 defineProps<{
-    composable: StudentFormService
+    composable: StudentEducationFormService
 }>()
 
 </script>

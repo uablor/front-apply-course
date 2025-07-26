@@ -1,7 +1,6 @@
 
 import { inject, injectable } from 'tsyringe';
 
-import { TeacherUseCase } from '../best.use-case';
 import { StudentEducationHttpRepository } from '../../infrastructure/StudentEducationHttpRepository';
 import type { IStudentEducationRepository } from '../../domain/repositories/IStudentEducationRepository';
 import type { FindStudentEducationModel, UpdateStudentEducationModel } from '../../domain/models/education.model';

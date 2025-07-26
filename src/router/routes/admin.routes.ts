@@ -5,7 +5,10 @@ import { TeacherRoutes } from "@/modules/admin/teacher/router/admin.teacher.rout
 import { UserAdminRoutes } from "@/modules/admin/user/router/admin.teacher.routes";
 import { RoleRoutes } from "@/modules/admin/role/router/admin.role.routes";
 import { CourseCategoriesRoutes } from "@/modules/admin/course_categorie/router/admin.course.categories.routes";
-import { CourseRoutes } from "@/modules/admin/course/router/admin.course.routes";
+
+import { StudentEducationRoutes } from "@/modules/admin/student_education/router/admin.teacher.routes";
+import { CourseRoutes } from "@/modules/admin/course/router/course.routes";
+import { ApplyCourseRoutes } from "@/modules/admin/apply_course/router/apply.course.routes";
 export const adminRoutes: RouteRecordRaw[] = [
   {
     path: "/admin",
@@ -18,6 +21,9 @@ export const adminRoutes: RouteRecordRaw[] = [
       ...RoleRoutes,
       ...CourseCategoriesRoutes,
       ...CourseRoutes,
+      ...StudentEducationRoutes,
+      ...ApplyCourseRoutes,
+      
 
       {
         path: ":pathMatch(.*)*",

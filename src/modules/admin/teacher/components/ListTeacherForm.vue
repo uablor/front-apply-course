@@ -81,14 +81,14 @@
 import { onMounted } from 'vue';
 import { container } from 'tsyringe';
 import DeleteComponent from './crud/Delete.component.vue';
-import StudentFormService from '../composables/teacher.composable';
+import TeacherFormService from '../composables/teacher.composable';
 import UpdateStudentForm from './crud/UpdateTeacherForm.vue';
 import { DeleteType } from '@/shared/enums/deletetype.enum';
 import { Status } from '@/shared/enums/pagination.query.enum';
 import { useTeacherStore } from '../stores/use-teacher.store';
 
 const store = useTeacherStore();
-const customerList = container.resolve(StudentFormService);
+const customerList = container.resolve(TeacherFormService);
 console.log("customerList", store.query);
 onMounted(() => {
   customerList.fetchPage(store.query);

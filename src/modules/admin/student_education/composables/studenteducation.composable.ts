@@ -9,15 +9,7 @@ import type { Rule } from "ant-design-vue/es/form";
 
 import { container } from "tsyringe";
 import { type IPaginationQuery } from "@/domain/models/IPaginationQuery.interface";
-// import type { CreateStudentModel } from "../domain/models/student.model";
-import dayjs from "dayjs";
 import { DeleteType } from "@/shared/enums/deletetype.enum";
-// import { ProvinceFindAllUseCase } from "../usecases/query/get-all-province.use-case";
-import type { address } from "@/domain/models/address.entity";
-// import { DistrictFindUseCase } from "../usecases/query/find.district.use-case";
-// import { StudentCreateUseCase } from "../usecases/command/create-student.use.case";
-// import type { UpdateStudentModel } from "../domain/models/student.model";
-// import { StudentUpdateUseCase } from "../usecases/command/update-student.use.case";
 import type { AxiosError } from "axios";
 import type { IErrorResponse } from "@/domain/models/IErrorResponse.interface";
 import { FindAllUseCase } from "../usecases/query/get-all.use-case";
@@ -26,12 +18,15 @@ import { CreateUseCase } from "../usecases/command/create-student-education.use-
 import { DeleteUseCase } from "../usecases/command/delete-student-education.use-case";
 import { RestoreUseCase } from "../usecases/command/restore-student-education.use-case";
 import { UpdateUseCase } from "../usecases/command/update-student-education.use-case";
-import { educationStatus, type CreateStudentEducationModel, type UpdateStudentEducationModel } from "../domain/models/education.model";
-// import { StudentDeleteUseCase } from "../usecases/command/delete-student.use-case";
-// import { RestoreStudentUseCase } from "../usecases/command/restore-student.use-case";
+import {
+  educationStatus,
+  type CreateStudentEducationModel,
+  type UpdateStudentEducationModel,
+} from "../domain/models/education.model";
+import { StudentFindOneUseCase } from "../../student/usecases/query/find-one.use-case";
 
 @injectable()
-export default class StudentFormService {
+export default class StudentEducationFormService {
   t = useI18n().t;
   store = useStudentEducationStore();
 
@@ -43,6 +38,8 @@ export default class StudentFormService {
   create_loading = ref<boolean>(false);
   update_loading = ref<boolean>(false);
   isDeleting = ref<boolean>(false);
+  isLoding_findone = ref<boolean>(false);
+  error_findone = ref<boolean>(false);
 
   rules: Record<string, Rule[]>;
   formRef = ref<FormInstance | null>(null);
@@ -56,94 +53,65 @@ export default class StudentFormService {
   delete_id = ref<number>(0);
 
   constructor(
-    private readonly _FindAllUseCase = container.resolve(
-      FindAllUseCase
-    ),
+    private readonly _FindAllUseCase = container.resolve(FindAllUseCase),
 
-    private readonly _createUseCase = container.resolve(
-      CreateUseCase
-    ),
-    private readonly _updateUseCase = container.resolve(
-      UpdateUseCase
-    ),
+    private readonly _createUseCase = container.resolve(CreateUseCase),
+    private readonly _updateUseCase = container.resolve(UpdateUseCase),
     private readonly _deleteUseCase = container.resolve(DeleteUseCase),
-    private readonly _restoreUseCase = container.resolve(
-      RestoreUseCase
-    )
+    private readonly _restoreUseCase = container.resolve(RestoreUseCase),
+    private readonly _findOneStudentUseCase = container.resolve(StudentFindOneUseCase)
   ) {
     const { t } = useI18n();
 
     this.rules = {
-      name: [{ required: true, message: t("validation.required_name") }],
-      surname: [{ required: true, message: t("validation.required_surname") }],
-      email: [
-        { required: true, message: t("validation.required_email") },
-        { type: "email", message: t("validation.valid_email") },
+      level: [{ required: true, message: t("validation.required_name") }],
+      field_of_study: [
+        { required: true, message: t("validation.required_surname") },
       ],
-      password: [
+      current_occupation: [
         { required: true, message: t("validation.required_password") },
-        { min: 6, message: t("validation.password_min") },
       ],
-      specialization: [
+      work_experience: [
         { required: true, message: t("validation.required_specialization") },
       ],
-      experience: [
-        { required: true, message: t("validation.required_experience") },
-      ],
-      education: [
-        { required: true, message: t("validation.required_education") },
-      ],
+      status: [{ required: true, message: t("validation.required_education") }],
     };
 
     this.columns = [
+        {
+    title: 'ລຳດັບ',
+    key: 'index',
+    width: 60,
+    align: 'center',
+    fixed: 'left'
+  },
       {
-        title: this.t("table.id"),
-        dataIndex: "id",
-        key: "id",
+        title: this.t("table.level"),
+        dataIndex: "level",
+        key: "level",
         fixed: "left",
-        width: 60,
+        width: 150,
       },
       {
-        title: this.t("table.name"),
-        dataIndex: "name",
-        key: "name",
+        title: this.t("table.current_occupation"),
+        dataIndex: "current_occupation",
+        key: "current_occupation",
         fixed: "left",
         width: 150,
         ellipsis: true,
       },
       {
-        title: this.t("table.surname"),
-        dataIndex: "surname",
-        key: "surname",
+        title: this.t("table.work_experience"),
+        dataIndex: "work_experience",
+        key: "work_experience",
         width: 150,
         ellipsis: true,
       },
       {
-        title: this.t("table.email"),
-        dataIndex: "email",
-        key: "email",
-        width: 200,
-        ellipsis: true,
-      },
-      {
-        title: this.t("table.specialization"),
-        dataIndex: "specialization",
-        key: "specialization",
+        title: this.t("table.status"),
+        dataIndex: "status",
+        key: "status",
         width: 130,
-        ellipsis: true,
-      },
-      {
-        title: this.t("table.experience"),
-        dataIndex: "experience",
-        key: "experience",
-        width: 100,
-        ellipsis: true,
-      },
-      {
-        title: this.t("table.education"),
-        dataIndex: "education",
-        key: "education",
-        width: 150,
         ellipsis: true,
       },
 
@@ -161,12 +129,13 @@ export default class StudentFormService {
         width: 160,
         ellipsis: true,
       },
-      {
-        title: this.t("table.action"),
-        key: "action",
-        fixed: "right",
-        width: 170,
-      },
+ {
+    title: 'Actions',
+    key: 'action',
+    width: 170,
+    align: 'center',
+    fixed: 'right'
+  }
     ];
   }
 
@@ -179,7 +148,6 @@ export default class StudentFormService {
     work_experience: 0,
     student_id: 0,
     status: educationStatus.studying,
-    
   });
 
   form_edit = reactive<UpdateStudentEducationModel>({
@@ -241,16 +209,14 @@ export default class StudentFormService {
   };
 
   showModal = async (record: any) => {
-    // this.open_create.value = true;
-    console.log("this.form_edit", record);
-
     Object.assign(this.form_edit, {
       id: record.id,
-      name: record.name,
-      surname: record.surname,
-      specialization: record.specialization,
-      experience: record.experience,
-      education: record.education,
+      level: record.level,  
+      field_of_study: record.field_of_study,
+      current_occupation: record.current_occupation,
+      work_experience: record.work_experience,
+      student_id: record.student_id,
+      status: record.status,
     });
     this.open_edit.value = true;
   };
@@ -271,7 +237,7 @@ export default class StudentFormService {
       await this._updateUseCase.execute(payload);
       message.success("ອັບເດດສຳເລັດ");
 
-      await this.fetchPage(this.store.query);
+      await this.findOneStudent(this.store.student.data.id);
       this.resetForm();
 
       this.open_edit.value = false;
@@ -301,10 +267,18 @@ export default class StudentFormService {
       const isValid = await formRef.validate();
       if (!isValid) return;
 
+      this.form_create.student_id = this.store.student.data?.id ?? 0;
+      console.log("sdfsdfsdf",this.store.student.data);
+      console.log(this.form_create);
+      if (this.form_create.student_id === 0 || this.form_create.student_id === null) {
+       return message.error('error');
+      }
+
       await this._createUseCase.execute(this.form_create);
+      
       message.success("ສ້າງສຳເລັດ");
       this.resetForm();
-      this.fetchPage(this.store.query);
+      this.findOneStudent(this.store.student.data.id);
       this.open_create.value = false;
     } catch (e: any) {
       const error = e as AxiosError;
@@ -336,7 +310,7 @@ export default class StudentFormService {
         this.deleteType.softdelete
       );
       message.success("ລົບລູກຄ້າສຳເລັດ");
-      this.fetchPage(this.store.query);
+      await this.findOneStudent(this.store.student.data.id);
       this.resetForm();
     } catch (err) {
       message.error("ລົບລູກຄ້າບໍ່ສຳເລັດ");
@@ -371,7 +345,7 @@ export default class StudentFormService {
       this.isDeleting.value = true;
       await this._restoreUseCase.execute(id);
       message.success("ກຼ້ຄືນສຳເລັດ");
-      this.fetchPage(this.store.query);
+      this.findOneStudent(this.store.student.data.id);
       this.resetForm();
     } catch (err) {
       message.error("ເກີດຂໍ້ຜິດພາດ");
@@ -380,4 +354,18 @@ export default class StudentFormService {
     }
   };
   cancel_restore = async () => {};
+
+  findOneStudent = async (id: number) => {
+    try {
+      this.isLoding_findone.value = true;
+      const res = await this._findOneStudentUseCase.execute(id);
+      this.store.student.data = res;
+
+      message.success("ໂຫຼດຂໍ້ມູນສຳເລັດ");
+    } catch (err) {
+      message.error("ໂຫຼດຂໍ້ມູນບໍ່ສຳເລັດ");
+    } finally {
+      this.isLoding_findone.value = false;
+    }
+  };
 }

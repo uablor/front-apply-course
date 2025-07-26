@@ -10,17 +10,16 @@
   </a-select>
 </template>
 <script lang="ts" setup>
-import StudentFormService from '../../composables/studenteducation.composable';
 import { container } from 'tsyringe';
 import { sortType, Status } from '@/shared/enums/pagination.query.enum';
+import StudentEducationFormService from '../../composables/studenteducation.composable';
 import { useStudentEducationStore } from '../../stores/use-student-education.store';
 
-const store = useStudentEducationStore();
-const studentService = container.resolve(StudentFormService);
+const store = useStudentEducationStore()
+const studentService = container.resolve(StudentEducationFormService);
 
 const handleFilterChange = () => {
-
+  console.log("asdf", store.query);
   studentService.fetchPage(store.query);
-    console.log("query",store.query);
 };
 </script>

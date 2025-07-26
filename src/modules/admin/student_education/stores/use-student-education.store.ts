@@ -9,6 +9,7 @@ import {
   Status,
 } from "@/shared/enums/pagination.query.enum";
 import type { IPaginationQuery } from "@/domain/models/IPaginationQuery.interface";
+import type { FindOneStudentModel } from "../../student/domain/models/student.model";
 // import { address } from '../../../../domain/models/address.entity';
 
 export const useStudentEducationStore = defineStore("use-student-education-store", () => {
@@ -32,8 +33,13 @@ export const useStudentEducationStore = defineStore("use-student-education-store
     is_active: Status.ACTIVE,
   });
 
+  const student = reactive<{ data: FindOneStudentModel }>({
+    data: {} as FindOneStudentModel,
+  });
+
   return {
     state,
     query,
+    student
   };
 });

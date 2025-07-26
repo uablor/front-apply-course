@@ -43,12 +43,12 @@
 </template>
 
 <script lang="ts" setup>
-import StudentFormService from '../../composables/teacher.composable';
+import TeacherFormService from '../../composables/teacher.composable';
 import type { FormInstance } from 'ant-design-vue';
 import { onMounted, ref } from 'vue';
 
 const { composable } = defineProps<{
-  composable: StudentFormService
+  composable: TeacherFormService
 }>();
 const formRef = ref<FormInstance | null>(null);
 

@@ -6,7 +6,7 @@ export interface TeacherModel {
   name: string;
   surname: string;
   specialization: string;
-  experience: number;
+  experience: number | null;
   education: string;
 }
 

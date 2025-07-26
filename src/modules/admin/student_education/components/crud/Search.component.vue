@@ -1,14 +1,18 @@
 <template>
-    <a-input-search v-model:value="store.query.search" placeholder="Search student" style="width: 200px"
-        @search="handleSearch" />
+        <a-input-search
+            v-model:value="store.query.search"
+            placeholder="Search student"
+            style="width: 200px"
+            @search="handleSearch"
+        />
 </template>
 
 <script setup lang="ts">
-import StudentFormService from '../../composables/studenteducation.composable';
 import { container } from 'tsyringe';
 import { useStudentEducationStore } from '../../stores/use-student-education.store';
+import StudentEducationFormService from '../../composables/studenteducation.composable';
 
-const studentService = container.resolve(StudentFormService);
+const studentService = container.resolve(StudentEducationFormService);
 const store = useStudentEducationStore();
 
 const handleSearch = () => {

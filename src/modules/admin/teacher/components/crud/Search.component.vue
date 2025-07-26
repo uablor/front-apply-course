@@ -5,10 +5,10 @@
 
 <script setup lang="ts">
 import { useCustomerStore } from '@/modules/admin/student/stores/student.store';
-import StudentFormService from '../../composables/teacher.composable';
+import TeacherFormService from '../../composables/teacher.composable';
 import { container } from 'tsyringe';
 
-const studentService = container.resolve(StudentFormService);
+const studentService = container.resolve(TeacherFormService);
 const store = useCustomerStore();
 
 const handleSearch = () => {

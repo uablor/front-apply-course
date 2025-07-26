@@ -37,8 +37,9 @@ export class StudentHttpRepository implements IStudentRepository {
 
 
   async findone(id:number): Promise<FindOneStudentModel> {
-    const res = await this._api.axios.post("/student/"+id);
-    return res.data.token;
+    const res = await this._api.axios.get("/student/"+id);
+
+    return res.data;
   }
 
   async findAll(query: IPaginationQuery): Promise<IResponse<FindStudentModel>> {

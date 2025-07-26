@@ -44,7 +44,7 @@
     "applications": "ສະໝັກຮຽນ",
     "apply_courses": "ສະໝັກຮຽນຫຼັກສູດ",
     "completion_records": "ຂໍ້ມູນການສຳເລັດ",
-    "education":"ການສືກສາຂອງນັກສືກສາ"
+    "education": "ການສືກສາຂອງນັກສືກສາ"
   },
   "student": {
     "add": "ເພີ່ມນັກຮຽນ",
@@ -99,7 +99,7 @@
     "actions": "ການດໍາເນີນງານ",
     "updatedAt": "ວັນທີແກ້ໄຂ",
     "createdAt": "ວັນທີສ້າງ",
-    "index":"ລຳດັບ"
+    "index": "ລຳດັບ"
   },
   "common": {
     "yes": "ຕົກລົງ",
@@ -110,7 +110,9 @@
     "delete": "ລືບ",
     "edit": "ແກ້ໄຂ",
     "save": "ບັນທຶກ",
-    "restore": "ກຼ້ຄືນ"
+    "restore": "ກຼ້ຄືນ",
+    "close": "ປິດ",
+    "open": "ເປີດ"
   },
   "teacher": {
     "academic_info": "ຂໍ້ມູນສະຖານະ",

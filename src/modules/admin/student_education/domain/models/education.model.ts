@@ -16,7 +16,6 @@ interface StudentEducationModel {
   status: educationStatus;
 }
 
-
 export interface CreateStudentEducationModel extends Omit<StudentEducationModel, "id"> {
 }
 
