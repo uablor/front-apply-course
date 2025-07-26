@@ -81,12 +81,12 @@ import {
     ExclamationCircleOutlined,
     RestOutlined
 } from '@ant-design/icons-vue'
-import type StudentFormService from '../../composables/teacher.composable'
+import type StudentFormService from '../../composables/course-categories.composable'
 
 import { Status } from '@/shared/enums/pagination.query.enum';
-import { useTeacherStore } from '../../stores/use-teacher.store';
+import { useCourseCategoriesStore } from '../../stores/use-course-categories.store';
 
-const store = useTeacherStore()
+const store = useCourseCategoriesStore()
 
 defineProps<{
     composable: StudentFormService

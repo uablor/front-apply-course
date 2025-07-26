@@ -2,7 +2,7 @@
 import { defineStore } from "pinia";
 import { reactive } from "vue";
 import type { IResponse } from "@/domain/interfaces/Ipagination.interface";
-import type { FindTeacherModel } from "../domain/models/teacher.model";
+import type { FindCourseCategoriesModel } from "../domain/models/course_categories.model";
 import {
   GetType,
   sortType,
@@ -11,8 +11,8 @@ import {
 import type { IPaginationQuery } from "@/domain/models/IPaginationQuery.interface";
 // import { address } from '../../../../domain/models/address.entity';
 
-export const useTeacherStore = defineStore("use-teacher-store", () => {
-  const state = reactive<IResponse<FindTeacherModel>>({
+export const useCourseCategoriesStore = defineStore("use-course-categories-store", () => {
+  const state = reactive<IResponse<FindCourseCategoriesModel>>({
     data: [],
     pagination: {
       currentPage: 0,

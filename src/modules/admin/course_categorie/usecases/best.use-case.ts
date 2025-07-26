@@ -1,10 +1,8 @@
-import { inject, injectable } from "tsyringe";
-import { TeacherHttpRepository } from "../infrastructure/TeacherHttpRepository";
-import type { ITeacherRepository } from "../domain/repositories/ITeacherRepository";
+// import { inject, injectable } from "tsyringe";
 
-@injectable()
-export class TeacherUseCase {
-  constructor(
- @inject(TeacherHttpRepository) protected _teacherHttpRepository: ITeacherRepository
-  ) {}
-}
+// @injectable()
+// export class TeacherUseCase {
+//   constructor(
+//  @inject(TeacherHttpRepository) protected _teacherHttpRepository: ITeacherRepository
+//   ) {}
+// }

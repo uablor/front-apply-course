@@ -21,6 +21,8 @@ import type {
   CreateRoleModel,
   UpdateRoleModel,
 } from "../domain/models/role.model";
+import { PermissionFindAllUseCase } from "../usecases/query/get-all-permission.use-case";
+import type { PermissionModel } from "../domain/models/permission.model";
 
 @injectable()
 export default class RoleFormService {
@@ -47,6 +49,8 @@ export default class RoleFormService {
 
   delete_id = ref<number>(0);
 
+  permissions = ref<PermissionModel[]>([]);
+
   constructor(
     private readonly _roleFindAllUseCase = container.resolve(
       RoleFindAllUseCase
@@ -55,7 +59,8 @@ export default class RoleFormService {
     private readonly _roleCreateUseCase = container.resolve(RoleCreateUseCase),
     private readonly _roleUpdateUseCase = container.resolve(RoleUpdateUseCase),
     private readonly _deleteUseCase = container.resolve(RoleDeleteUseCase),
-    private readonly _restoreUseCase = container.resolve(RoleRestoreUseCase)
+    private readonly _restoreUseCase = container.resolve(RoleRestoreUseCase),
+    private readonly _getPermissionUseCase = container.resolve(PermissionFindAllUseCase)
   ) {
     const { t } = useI18n();
 
@@ -231,6 +236,7 @@ export default class RoleFormService {
 
   create = async () => {
     try {
+     
       this.creat_loading.value = true;
       const formRef = this.formRef.value;
       console.log(formRef);
@@ -238,7 +244,6 @@ export default class RoleFormService {
 
       const isValid = await formRef.validate();
       if (!isValid) return;
-
       await this._roleCreateUseCase.execute(this.form_create);
       message.success("ສ້າງສຳເລັດ");
       this.resetForm();
@@ -318,4 +323,15 @@ export default class RoleFormService {
     }
   };
   cancel_restore = async () => {};
+
+  getPermissions = async () => {
+    try {
+      const res = await this._getPermissionUseCase.execute();
+      this.permissions.value = res;
+      console.log(this.form_create);
+    } catch (err: any) {
+      message.error("ໂຫຼດຂໍ້ມູນບໍ່ສຳເລັດ");
+      console.log(err);
+    }
+  };
 }

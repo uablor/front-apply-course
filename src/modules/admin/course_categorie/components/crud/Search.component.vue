@@ -4,12 +4,12 @@
 </template>
 
 <script setup lang="ts">
-import { useCustomerStore } from '@/modules/admin/student/stores/student.store';
-import StudentFormService from '../../composables/teacher.composable';
+import StudentFormService from '../../composables/course-categories.composable';
 import { container } from 'tsyringe';
+import { useCourseCategoriesStore } from '../../stores/use-course-categories.store';
 
 const studentService = container.resolve(StudentFormService);
-const store = useCustomerStore();
+const store = useCourseCategoriesStore()
 
 const handleSearch = () => {
     store.query = { ...store.query, search: store.query.search };

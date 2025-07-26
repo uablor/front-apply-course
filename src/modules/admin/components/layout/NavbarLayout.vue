@@ -3,18 +3,8 @@
         <menu-unfold-outlined v-if="collapsed" class="trigger" @click="onCollapsed"
             style="font-size: 20px; margin-left: -35px" />
         <menu-fold-outlined v-else class="trigger" @click="onCollapsed" style="margin-left: -35px; font-size: 20px" />
-
         <div class="header-action-container">
-            <!-- <a-badge count="2">
-                <a-avatar shape="square" size="large" class="navbar-btn">
-                    <shopping-cart-outlined class="menu-icon" />
-                </a-avatar>
-            </a-badge>
-            <a-badge count="3">
-                <a-avatar shape="square" size="large" class="navbar-btn">
-                    <comment-outlined class="menu-icon" />
-                </a-avatar>
-            </a-badge> -->
+            <LanguageSwitcher @language-changed="onLanguageChanged" />
             <a-badge>
                 <logout-view />
             </a-badge>
@@ -23,18 +13,18 @@
 </template>
 
 <script lang="ts" setup>
-
+import LanguageSwitcher from '@shared/ui/Language_switcher.component.vue'
 import LogoutView from '@/modules/auth/views/LogoutView.vue';
 import { ref } from "vue";
 import { useRouter } from 'vue-router';
 const router = useRouter();
 import {
-    ShoppingCartOutlined,
     MenuUnfoldOutlined,
     MenuFoldOutlined,
-    CommentOutlined,
-    LogoutOutlined,
 } from "@ant-design/icons-vue";
+import { message } from 'ant-design-vue';
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
 
 const collapsed = ref<boolean>(false);
 
@@ -45,9 +35,9 @@ const onCollapsed = () => {
     emit("toggleSidebar");
 };
 
-const logout = () => {
-    localStorage.removeItem("token");
-    router.push({name:"auth.login"})
+const onLanguageChanged = (locale: string) => {
+  console.log('Language changed to:', locale)
+  message.success(t('common.success'))
 }
 </script>
 

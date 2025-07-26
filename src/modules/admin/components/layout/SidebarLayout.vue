@@ -16,9 +16,6 @@
             <a-menu-item key="admin.role">
                 <router-link :to="{ name: 'admin.role' }">{{ $t('sidebar.roles') }}</router-link>
             </a-menu-item>
-            <!-- <a-menu-item key="admin.permission">
-                <router-link :to="{ name: 'admin.permission' }">{{ $t('sidebar.permissions') }}</router-link>
-            </a-menu-item> -->
         </a-sub-menu>
 
         <a-menu-item key="admin.student">
@@ -27,18 +24,13 @@
             <router-link :to="{ name: 'admin.student' }" />
         </a-menu-item>
 
-        <a-menu-item key="admin.student.education">
-            <idcard-outlined />
-            <span>{{ $t('sidebar.education') }}</span>
-            <router-link :to="{ name: 'admin.student' }" />
-</a-menu-item>
         <a-menu-item key="admin.teacher">
             <team-outlined />
             <span>{{ $t('sidebar.teachers') }}</span>
             <router-link :to="{ name: 'admin.teacher' }" />
         </a-menu-item>
 
-        <a-sub-menu key="courses">
+        <a-sub-menu key="/admin/course_categorie">
             <template #title>
                 <video-camera-outlined />
                 <span>{{ $t('sidebar.courses') }}</span>
@@ -46,8 +38,8 @@
             <a-menu-item key="admin.course">
                 <router-link :to="{ name: 'admin.course' }">{{ $t('sidebar.manage_courses') }}</router-link>
             </a-menu-item>
-            <a-menu-item key="admin.course_category">
-                <router-link :to="{ name: 'admin.course_category' }">{{ $t('sidebar.course_categories') }}</router-link>
+            <a-menu-item key="admin.course_categorie">
+                <router-link :to="{ name: 'admin.course_categorie' }">{{ $t('sidebar.course_categories') }}</router-link>
             </a-menu-item>
         </a-sub-menu>
 
@@ -60,7 +52,8 @@
                 <router-link :to="{ name: 'admin.apply_course' }">{{ $t('sidebar.apply_courses') }}</router-link>
             </a-menu-item>
             <a-menu-item key="admin.completion_record">
-                <router-link :to="{ name: 'admin.completion_record' }">{{ $t('sidebar.completion_records') }}</router-link>
+                <router-link :to="{ name: 'admin.completion_record' }">{{ $t('sidebar.completion_records')
+                    }}</router-link>
             </a-menu-item>
         </a-sub-menu>
     </a-menu>
@@ -83,12 +76,12 @@ const openKeys = ref<string[]>([]);
 
 const routeToSubmenuMap: Record<string, string> = {
     'admin.user': '/admin/user/admin',
-    'admin.role': '/admin/user/admin', 
+    'admin.role': '/admin/user/admin',
     'admin.permission': '/admin/user/admin',
-    'admin.course': 'courses',
-    'admin.course_category': 'courses',
-    'admin.apply_course': 'apply',
-    'admin.completion_record': 'apply'
+    'admin.course': '/admin/course_categorie',
+    'admin.course_categorie': '/admin/course_categorie',
+    // 'admin.apply_course': 'apply',
+    // 'admin.completion_record': 'apply'
 };
 
 watch(
@@ -96,14 +89,14 @@ watch(
     (routeName) => {
         if (routeName) {
             selectedKeys.value = [routeName as string];
-            
+
             const submenuKey = routeToSubmenuMap[routeName as string];
             if (submenuKey) {
                 openKeys.value = [submenuKey];
             } else {
                 openKeys.value = [];
             }
-            
+
         }
     },
     { immediate: true }

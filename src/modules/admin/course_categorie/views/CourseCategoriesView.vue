@@ -4,7 +4,7 @@
       <div>
         <a-typography-title :level="3">
           <UserOutlined style="margin-right: 10px" />
-          Teacher Form
+          Course Category Form
         </a-typography-title>
       </div>
       <div class="create-search-student">
@@ -22,11 +22,11 @@
 </template>
 
 <script setup lang="ts">
-import FilterComponent from '@/modules/admin/teacher/components/crud/Filter.component.vue';
+import FilterComponent from '../components/crud/Filter.component.vue';
 import { UserOutlined } from '@ant-design/icons-vue';
-import ListTeacherForm from '@/modules/admin/teacher/components/ListTeacherForm.vue';
-import CreateTeacherForm from '@/modules/admin/teacher/components/crud/CreateTeacherForm.vue';
-import SearchComponent from '@/modules/admin/teacher/components/crud/Search.component.vue';
+import ListTeacherForm from '../components/ListTeacherForm.vue';
+import CreateTeacherForm from '../components/crud/CreateTeacherForm.vue';
+import SearchComponent from '../components/crud/Search.component.vue';
 </script>
 
 <style scoped lang="scss">

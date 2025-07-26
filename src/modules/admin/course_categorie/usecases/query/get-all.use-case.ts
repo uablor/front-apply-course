@@ -1,19 +1,18 @@
 import { inject, injectable } from "tsyringe";
 import type { IPaginationQuery } from "@/domain/models/IPaginationQuery.interface";
 import type { IResponse } from "@/domain/interfaces/Ipagination.interface";
-import type { FindTeacherModel } from "../../domain/models/teacher.model";
-import type { ITeacherRepository } from "../../domain/repositories/ITeacherRepository";
-import { TeacherHttpRepository } from "../../infrastructure/TeacherHttpRepository";
+import { CourseCategoriesHttpRepository } from "../../infrastructure/CourseCategoriesHttpRepository";
+import type { ICourseCategoriesRepository } from "../../domain/repositories/ICourseCategoriesRepository";
+import type { FindCourseCategoriesModel } from "../../domain/models/course_categories.model";
 
 @injectable()
-export class TeacherFindAllUseCase {
+export class CourseCategoriesFindAllUseCase {
   constructor(
-    @inject(TeacherHttpRepository)
-    private _teacherHttpRepository: ITeacherRepository
+    @inject(CourseCategoriesHttpRepository) protected _HttpRepository: ICourseCategoriesRepository
   ) {}
 
-  async execute(query: IPaginationQuery): Promise<IResponse<FindTeacherModel>> {
-    const res = await this._teacherHttpRepository.findAll(query);
+  async execute(query: IPaginationQuery): Promise<IResponse<FindCourseCategoriesModel>> {
+    const res = await this._HttpRepository.findAll(query);
 
     return res;
   }

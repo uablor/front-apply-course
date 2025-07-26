@@ -1,7 +1,7 @@
 <template>
 
   <a-table :sticky="{ offsetHeader: 0 }" :columns="customerList.columns" :data-source="store.state.data"
-    :loading="customerList.find_loading.value" row-key="id" :pagination="false" :scroll="{ x: 1500 }">
+    :loading="customerList.find_loading.value" row-key="id" :pagination="false">
 
     <template #headerCell="{ column }">
       <template v-if="column.key === 'name'">
@@ -13,27 +13,9 @@
     </template>
 
     <template #bodyCell="{ column, record }">
+      
 
-
-
-      <template v-if="column.key === 'birth_date'">
-        <span>{{ record.birth_date || '-' }}</span>
-      </template>
-
-      <template v-else-if="column.key === 'gender'">
-        <span :style="{ color: record.gender === 'male' ? 'blue' : record.gender === 'female' ? 'red' : '' }">
-          {{ record.gender ? $t(`student.gender.${record.gender}`) : '-' }}
-        </span>
-      </template>
-      <template v-else-if="column.key === 'district'">
-        <span>{{ record.district || '-' }}</span>
-      </template>
-
-      <template v-else-if="column.key === 'province'">
-        <span>{{ record.province || '-' }}</span>
-      </template>
-
-      <template v-else-if="column.key === 'updatedAt'">
+      <template v-if="column.key === 'updatedAt'">
         <span>{{ record.updatedAt || '-' }}</span>
       </template>
 
@@ -78,13 +60,12 @@
 import { onMounted } from 'vue';
 import { container } from 'tsyringe';
 import DeleteComponent from './crud/Delete.component.vue';
-import StudentFormService from '../composables/teacher.composable';
+import StudentFormService from '../composables/course-categories.composable';
 import UpdateStudentForm from './crud/UpdateTeacherForm.vue';
-import { DeleteType } from '@/shared/enums/deletetype.enum';
 import { Status } from '@/shared/enums/pagination.query.enum';
-import { useTeacherStore } from '../stores/use-teacher.store';
+import { useCourseCategoriesStore } from '../stores/use-course-categories.store';
 
-const store = useTeacherStore();
+const store = useCourseCategoriesStore()
 const customerList = container.resolve(StudentFormService);
 console.log("customerList", store.query);
 onMounted(() => {
@@ -99,7 +80,7 @@ onMounted(() => {
 
 .table-action {
   display: flex;
-  justify-content: center;
+  justify-content:left;
   gap: 10px;
 }
 

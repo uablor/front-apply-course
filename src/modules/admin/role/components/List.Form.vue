@@ -99,8 +99,9 @@ import { useRoleStore } from '../stores/use-role.store';
 const store = useRoleStore();
 const customerList = container.resolve(RoleFormService);
 console.log("customerList", store.query);
-onMounted(() => {
-  customerList.fetchPage(store.query);
+onMounted(async () => {
+  await customerList.fetchPage(store.query);
+  
 })
 </script>
 

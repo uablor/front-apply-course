@@ -1,11 +1,12 @@
 import type { address } from "@/domain/models/address.entity";
 import type { timestamp } from "@/domain/models/best.timestamp.entity";
+import type { PermissionModel } from "./permission.model";
 
 export interface RoleModel {
   id: number;
   name: string;
   display_name: string;
-  permissions: string[];
+  permissions: PermissionModel[];
 }
 
 export interface CreateRoleModel extends Omit<RoleModel, "id"> {

@@ -44,9 +44,8 @@
 
         <a-form-item name="permissions" :label="$t('admin.permissions')">
 
-          <a-select v-model:value="service.form_edit.permissions" mode="multiple" :placeholder="'ເລືອກ Permissions'"
-            :options="permissionOptions" style="width: 100%" :maxTagCount="5" />
-
+          <a-select v-model:value="service.form_create.permissions" mode="multiple" :placeholder="'ເລືອກ Permissions'"
+            :options="service.permissions.value" :field-names="{ label: 'name', value: 'id' }" style="width: 100%" :maxTagCount="5" />
 
         </a-form-item>
 
@@ -68,31 +67,19 @@
 import { ref, onMounted } from 'vue';
 import { container } from 'tsyringe';
 import type { FormInstance } from 'ant-design-vue';
-import StudentFormService from '../../composables/role.composable';
+import RoleFormService from '../../composables/role.composable';
 import {
   UserAddOutlined,
   UserOutlined
 } from '@ant-design/icons-vue';
 
-const service = container.resolve(StudentFormService);
+const service = container.resolve(RoleFormService);
 const formRef = ref<FormInstance | null>(null);
 
 
-const permissionOptions = ref([
-  { value: 'read', label: 'ອ່ານ (Read)' },
-  { value: 'write', label: 'ຂຽນ (Write)' },
-  { value: 'delete', label: 'ລຶບ (Delete)' },
-  { value: 'update', label: 'ອັບເດດ (Update)' },
-  { value: 'create', label: 'ສ້າງ (Create)' },
-  { value: 'manage_users', label: 'ຈັດການຜູ້ໃຊ້ (Manage Users)' },
-  { value: 'manage_content', label: 'ຈັດການເນື້ອຫາ (Manage Content)' },
-  { value: 'view_reports', label: 'ເບິ່ງລາຍງານ (View Reports)' },
-  { value: 'system_admin', label: 'ຜູ້ຄຸ້ມຄອງລະບົບ (System Admin)' }
-]);
-
-
-onMounted(() => {
+onMounted(async () => {
   service.formRef = formRef;
+  await service.getPermissions()
 });
 
 </script>

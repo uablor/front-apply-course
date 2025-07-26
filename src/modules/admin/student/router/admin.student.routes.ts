@@ -10,14 +10,7 @@ export const studentRoutes: RouteRecordRaw[] = [
       guestOnly: true
     }
   },
-  {
-    path: 'studendfdft',
-    name: 'admin.permission',
-    component: () => import('../views/StudentView.vue'),
-    meta: {
-      guestOnly: true
-    }
-  },
+
   {
     path: 'studdfdfent',
     name: 'admin.course',
@@ -26,14 +19,7 @@ export const studentRoutes: RouteRecordRaw[] = [
       guestOnly: true
     }
   },
-  {
-    path: 'studfddent',
-    name: 'admin.course_category',
-    component: () => import('../views/StudentView.vue'),
-    meta: {
-      guestOnly: true
-    }
-  },
+
   {
     path: 'studdfdfent',
     name: 'admin.apply_course',

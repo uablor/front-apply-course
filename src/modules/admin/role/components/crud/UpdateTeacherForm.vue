@@ -21,7 +21,7 @@
       </a-row>
       <a-form-item name="permissions" :label="$t('admin.permissions')">
       <a-select v-model:value="composable.form_edit.permissions" mode="multiple" :placeholder="'ເລືອກ Permissions'"
-            :field-names="{ label: 'name', value: 'id' }"
+           :options="composable.permissions.value" :field-names="{ label: 'name', value: 'id' }"
            style="width: 100%" :maxTagCount="5" />
       </a-form-item>
     </a-form>
@@ -38,8 +38,9 @@ const { composable } = defineProps<{
 }>();
 const formRef = ref<FormInstance | null>(null);
 
-onMounted(() => {
+onMounted(async () => {
   composable.formRef = formRef;
+  await composable.getPermissions()
 });
 
 

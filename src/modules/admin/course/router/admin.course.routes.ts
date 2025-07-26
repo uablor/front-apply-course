@@ -1,10 +1,10 @@
 // src/router/routes/auth.routes.ts
 import type { RouteRecordRaw } from 'vue-router'
 
-export const TeacherRoutes: RouteRecordRaw[] = [
+export const CourseRoutes: RouteRecordRaw[] = [
   {
-    path: 'teacher',
-    name: 'admin.teacher',
+    path: 'course',
+    name: 'admin.course',
     component: () => import('../views/TeacherView.vue'),
 
   },

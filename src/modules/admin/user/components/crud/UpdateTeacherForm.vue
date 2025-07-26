@@ -33,7 +33,8 @@
           <a-form-item name="permissions" :label="$t('admin.permissions')">
 
             <a-select v-model:value="composable.form_edit.permissions" mode="multiple"
-              :placeholder="'ເລືອກ Permissions'" :options="permissionOptions" style="width: 100%" :maxTagCount="5" />
+              :placeholder="'ເລືອກ Permissions'" :options="roleConposable.permissions.value"
+              :field-names="{ label: 'name', value: 'id' }" style="width: 100%" :maxTagCount="5" />
 
 
           </a-form-item>
@@ -49,7 +50,9 @@ import { useRoleStore } from '@/modules/admin/role/stores/use-role.store';
 import AdminUserFormService from '../../composables/user-admin.composable';
 import type { FormInstance } from 'ant-design-vue';
 import { onMounted, ref } from 'vue';
-
+import RoleFormService from '@/modules/admin/role/composables/role.composable';
+import { container } from 'tsyringe';
+const roleConposable = container.resolve(RoleFormService)
 const storeRole = useRoleStore()
 const { composable } = defineProps<{
   composable: AdminUserFormService
@@ -57,21 +60,10 @@ const { composable } = defineProps<{
 
 const formRef = ref<FormInstance | null>(null);
 
-const permissionOptions = ref([
-  { value: 'read', label: 'ອ່ານ (Read)' },
-  { value: 'write', label: 'ຂຽນ (Write)' },
-  { value: 'delete', label: 'ລຶບ (Delete)' },
-  { value: 'update', label: 'ອັບເດດ (Update)' },
-  { value: 'create', label: 'ສ້າງ (Create)' },
-  { value: 'manage_users', label: 'ຈັດການຜູ້ໃຊ້ (Manage Users)' },
-  { value: 'manage_content', label: 'ຈັດການເນື້ອຫາ (Manage Content)' },
-  { value: 'view_reports', label: 'ເບິ່ງລາຍງານ (View Reports)' },
-  { value: 'system_admin', label: 'ຜູ້ຄຸ້ມຄອງລະບົບ (System Admin)' }
-]);
 
-
-onMounted(() => {
+onMounted( async () => {
   composable.formRef = formRef;
+  await roleConposable.getPermissions()
 });
 </script>
 

@@ -1,7 +1,6 @@
 import { ref, reactive } from "vue";
 import { injectable } from "tsyringe";
 import { message } from "ant-design-vue";
-import { useTeacherStore } from "../stores/use-teacher.store";
 import type { FormInstance } from "ant-design-vue";
 import { useI18n } from "vue-i18n";
 
@@ -20,22 +19,23 @@ import type { address } from "@/domain/models/address.entity";
 // import { StudentUpdateUseCase } from "../usecases/command/update-student.use.case";
 import type { AxiosError } from "axios";
 import type { IErrorResponse } from "@/domain/models/IErrorResponse.interface";
-import { TeacherFindAllUseCase } from "../usecases/query/get-all.use-case";
 import type {
-  CreateTeacherModel,
-  UpdateTeacherModel,
-} from "../domain/models/teacher.model";
-import { TeacherCreateUseCase } from "../usecases/command/create-teacher.use-case";
-import { TeacherDeleteUseCase } from "../usecases/command/delete.teacher.use-case";
-import { TeacherRestoreUseCase } from "../usecases/command/restore-teacher.use-case";
-import { TeacherUpdateUseCase } from "../usecases/command/update-teacher.use-case";
+  CreateCourseCategoriesModel,
+  UpdateCourseCategoriesModel,
+} from "../domain/models/course_categories.model";
+import { CourseCategoriesFindAllUseCase } from "../usecases/query/get-all.use-case";
+import { CourseCategoriesCreateUseCase } from "../usecases/command/create-course-categories.use-case";
+import { CourseCategoriesUpdateUseCase } from "../usecases/command/update-course-categories.use-case";
+import { CourseCategoriesRestoreUseCase } from "../usecases/command/restore-course-categories.use-case";
+import { CourseCategoriesDeleteUseCase } from "../usecases/command/delete-course-categories.use-case";
+import { useCourseCategoriesStore } from "../stores/use-course-categories.store";
 // import { StudentDeleteUseCase } from "../usecases/command/delete-student.use-case";
 // import { RestoreStudentUseCase } from "../usecases/command/restore-student.use-case";
 
 @injectable()
 export default class StudentFormService {
   t = useI18n().t;
-  store = useTeacherStore();
+  store = useCourseCategoriesStore();
 
   open_edit = ref<boolean>(false);
   open_create = ref<boolean>(false);
@@ -58,43 +58,27 @@ export default class StudentFormService {
   delete_id = ref<number>(0);
 
   constructor(
-    private readonly _teacherFindAllUseCase = container.resolve(
-      TeacherFindAllUseCase
+    private readonly _FindAllUseCase = container.resolve(
+      CourseCategoriesFindAllUseCase
     ),
 
-    private readonly _createTeacherUseCase = container.resolve(
-      TeacherCreateUseCase
+    private readonly _createUseCase = container.resolve(
+      CourseCategoriesCreateUseCase
     ),
-    private readonly _updateStudentUseCase = container.resolve(
-      TeacherUpdateUseCase
+    private readonly _updateUseCase = container.resolve(
+      CourseCategoriesUpdateUseCase
     ),
-    private readonly _deleteUseCase = container.resolve(TeacherDeleteUseCase),
-    private readonly _restoreStudentUseCase = container.resolve(
-      TeacherRestoreUseCase
+    private readonly _deleteUseCase = container.resolve(
+      CourseCategoriesDeleteUseCase
+    ),
+    private readonly _restoreUseCase = container.resolve(
+      CourseCategoriesRestoreUseCase
     )
   ) {
     const { t } = useI18n();
 
     this.rules = {
       name: [{ required: true, message: t("validation.required_name") }],
-      surname: [{ required: true, message: t("validation.required_surname") }],
-      email: [
-        { required: true, message: t("validation.required_email") },
-        { type: "email", message: t("validation.valid_email") },
-      ],
-      password: [
-        { required: true, message: t("validation.required_password") },
-        { min: 6, message: t("validation.password_min") },
-      ],
-      specialization: [
-        { required: true, message: t("validation.required_specialization") },
-      ],
-      experience: [
-        { required: true, message: t("validation.required_experience") },
-      ],
-      education: [
-        { required: true, message: t("validation.required_education") },
-      ],
     };
 
     this.columns = [
@@ -110,42 +94,7 @@ export default class StudentFormService {
         dataIndex: "name",
         key: "name",
         fixed: "left",
-        width: 150,
-        ellipsis: true,
-      },
-      {
-        title: this.t("table.surname"),
-        dataIndex: "surname",
-        key: "surname",
-        width: 150,
-        ellipsis: true,
-      },
-      {
-        title: this.t("table.email"),
-        dataIndex: "email",
-        key: "email",
-        width: 200,
-        ellipsis: true,
-      },
-      {
-        title: this.t("table.specialization"),
-        dataIndex: "specialization",
-        key: "specialization",
-        width: 130,
-        ellipsis: true,
-      },
-      {
-        title: this.t("table.experience"),
-        dataIndex: "experience",
-        key: "experience",
-        width: 100,
-        ellipsis: true,
-      },
-      {
-        title: this.t("table.education"),
-        dataIndex: "education",
-        key: "education",
-        width: 150,
+        width: 170,
         ellipsis: true,
       },
 
@@ -167,47 +116,27 @@ export default class StudentFormService {
         title: this.t("table.action"),
         key: "action",
         fixed: "right",
-        width: 170,
+        width: 120,
       },
     ];
   }
 
   deleteType = reactive({ softdelete: DeleteType.SOFT });
 
-  form_create = reactive<CreateTeacherModel>({
+  form_create = reactive<CreateCourseCategoriesModel>({
     name: "",
-    surname: "",
-    password: "",
-    email: "",
-    specialization: "",
-    experience: 0,
-    education: "",
   });
 
-  form_edit = reactive<UpdateTeacherModel>({
+  form_edit = reactive<UpdateCourseCategoriesModel>({
     id: 0,
     name: "",
-    surname: "",
-    specialization: "",
-    experience: 0,
-    education: "",
   });
 
   resetForm = () => {
     this.form_create.name = "";
-    this.form_create.surname = "";
-    this.form_create.password = "";
-    this.form_create.specialization = "";
-    this.form_create.experience = 0;
-    this.form_create.education = "";
-    this.form_create.email = "";
 
     this.form_edit.id = 0;
     this.form_edit.name = "";
-    this.form_edit.surname = "";
-    this.form_edit.specialization = "";
-    this.form_edit.experience = 0;
-    this.form_edit.education = "";
 
     this.delete_id.value = 0;
   };
@@ -215,7 +144,7 @@ export default class StudentFormService {
   fetchPage = async (query: IPaginationQuery) => {
     try {
       this.find_loading.value = true;
-      const response = await this._teacherFindAllUseCase.execute(query);
+      const response = await this._FindAllUseCase.execute(query);
       this.store.state.data = response.data;
       this.store.state.pagination = {
         total: response.pagination.total,
@@ -248,10 +177,6 @@ export default class StudentFormService {
     Object.assign(this.form_edit, {
       id: record.id,
       name: record.name,
-      surname: record.surname,
-      specialization: record.specialization,
-      experience: record.experience,
-      education: record.education,
     });
     this.open_edit.value = true;
   };
@@ -269,7 +194,7 @@ export default class StudentFormService {
         ...this.form_edit,
       };
       console.log(payload);
-      await this._updateStudentUseCase.execute(payload);
+      await this._updateUseCase.execute(payload);
       message.success("ອັບເດດສຳເລັດ");
 
       await this.fetchPage(this.store.query);
@@ -302,7 +227,7 @@ export default class StudentFormService {
       const isValid = await formRef.validate();
       if (!isValid) return;
 
-      await this._createTeacherUseCase.execute(this.form_create);
+      await this._createUseCase.execute(this.form_create);
       message.success("ສ້າງສຳເລັດ");
       this.resetForm();
       this.fetchPage(this.store.query);
@@ -370,7 +295,7 @@ export default class StudentFormService {
   confirm_restore = async (id: number) => {
     try {
       this.isDeleting.value = true;
-      await this._restoreStudentUseCase.execute(id);
+      await this._restoreUseCase.execute(id);
       message.success("ກຼ້ຄືນສຳເລັດ");
       this.fetchPage(this.store.query);
       this.resetForm();

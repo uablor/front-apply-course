@@ -2,6 +2,7 @@ import type { IPaginationQuery } from "@/domain/models/IPaginationQuery.interfac
 import type { IResponse } from "@/domain/interfaces/Ipagination.interface"
 import type { DeleteType } from "@/shared/enums/deletetype.enum"
 import type { CreateRoleModel, FindRoleModel, UpdateRoleModel } from "../models/role.model"
+import type { PermissionModel } from "../models/permission.model"
 
 
 export interface IRoleRepository {
@@ -11,5 +12,6 @@ export interface IRoleRepository {
   restore(id: number): Promise<string>
   // findone():Promise<string>
   findAll(query: IPaginationQuery): Promise<IResponse<FindRoleModel>> 
+  findPermissionAll(): Promise<PermissionModel[]> 
 
 }

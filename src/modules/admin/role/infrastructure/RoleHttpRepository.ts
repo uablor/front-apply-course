@@ -5,6 +5,7 @@ import type { IPaginationQuery } from "@/domain/models/IPaginationQuery.interfac
 import type { IResponse } from "@/domain/interfaces/Ipagination.interface";
 import type { DeleteType } from "@/shared/enums/deletetype.enum";
 import type { CreateRoleModel, FindRoleModel, UpdateRoleModel } from "../domain/models/role.model";
+import type { PermissionModel } from "../domain/models/permission.model";
 
 @injectable()
 export class RoleHttpRepository implements IRoleRepository {
@@ -43,16 +44,8 @@ export class RoleHttpRepository implements IRoleRepository {
     // console.log("asdfadsf",res.data);
     return res.data;
   }
-
-//   async findAllProvince(): Promise<[]> {
-//     const res = await this._api.axios.get("/province");
-//     return res.data;
-//   }
-
-//   async findAllDistrict(id: number): Promise<[]> {
-//     console.log("asdfadsf",id);
-//     const res = await this._api.axios.get("/district/" ,{ params: {id } });
-//     console.log("asdfadsf",res.data);
-//     return res.data;
-//   }
+  async findPermissionAll(): Promise<PermissionModel[]> {
+    const res = await this._api.axios.get("/permission");
+    return res.data;
+  }
 }

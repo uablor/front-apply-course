@@ -10,12 +10,12 @@
   </a-select>
 </template>
 <script lang="ts" setup>
-import StudentFormService from '../../composables/teacher.composable';
+import StudentFormService from '../../composables/course-categories.composable';
 import { container } from 'tsyringe';
 import { sortType, Status } from '@/shared/enums/pagination.query.enum';
-import { useTeacherStore } from '../../stores/use-teacher.store';
+import { useCourseCategoriesStore } from '../../stores/use-course-categories.store';
 
-const store = useTeacherStore();
+const store = useCourseCategoriesStore()
 const studentService = container.resolve(StudentFormService);
 
 const handleFilterChange = () => {
