@@ -40,4 +40,14 @@ export class AuthHttpRepository implements IAuthRepository {
     const res = await this._api.axios.post("/auth/refresh");
     return res.data.token;
   }
+
+  async verifyEmail(token: string): Promise<string> {
+    const res = await this._api.axios.post("/mail", { parms: token });
+    return res.data;
+  }
+
+  async resendEmail(email: string): Promise<string> {
+    const res = await this._api.axios.post("/mail", { parms: email });
+    return res.data;
+  }
 }

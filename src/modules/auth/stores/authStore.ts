@@ -2,9 +2,9 @@
 // src/modules/auth/stores/authStore.ts
 import { defineStore } from 'pinia';
 import type { AuthLoginPayload, AuthRegisterPayload } from '../domain/models/AuthPayload';
-import { RegisterUseCase } from '../usecases/useRegiste.use-case';
+import { RegisterUseCase } from '../usecases/command/useRegiste.use-case';
 import { container } from 'tsyringe';
-import { LoginUseCase } from '../usecases/useLogin.use-case';
+import { LoginUseCase } from '../usecases/command/useLogin.use-case';
 
 
 export const useAuthStore = defineStore('auth', () => {

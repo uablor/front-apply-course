@@ -96,7 +96,7 @@
         </div>
         <h2 class="title">ກວດສອບອີເມວຂອງທ່ານ</h2>
         <p class="subtitle">
-          ເຮົາໄດ້ສົ່ງລິ້ງຢືນຢັນໄປທີ່ : {{ email }} <strong></strong>
+          ເຮົາໄດ້ສົ່ງລິ້ງຢືນຢັນໄປທີ່: <strong></strong>
         </p>
         
         <div class="email-instructions">
@@ -122,7 +122,7 @@
             type="primary" 
             ghost 
             size="large" 
-            @click="resendVerification(email)"
+            @click="resendVerification"
             :loading="isResending"
             class="action-button"
           >
@@ -173,13 +173,13 @@
   </div>
 </template>
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import { useEmailVerification } from '../../composables/useAuth/Email.Test.componsable';
 
 const route = useRoute();
 
-const email = ref<string>('')
+
 const {
   verificationStatus,
   errorMessage,
@@ -188,6 +188,7 @@ const {
   goToLogin,
   isChangingEmail,
   showChangeEmailModal,
+  verifyEmailFromToken,
   resendVerification,
   handleChangeEmail,
   changeEmail,
@@ -195,7 +196,10 @@ const {
 } = useEmailVerification();
 
 onMounted(() => {
-  email.value = route.query.email as string;
+  const token = route.query.token as string;
+  if (token) {
+    verifyEmailFromToken(token);
+  }
 });
 </script>
 

@@ -6,4 +6,6 @@ export interface IAuthRepository {
   register(payload: AuthRegisterPayload): Promise<AxiosResponse>
   logout(): Promise<void>
   refreshToken(): Promise<string>
+  verifyEmail(token:string): Promise<string>
+  resendEmail(email:string): Promise<string>
 }

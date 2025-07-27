@@ -1,94 +1,78 @@
 // composables/useEmailVerification.ts
-import { ref } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
-import { message } from 'ant-design-vue';
-
-type VerificationStatus = 'verifying' | 'success' | 'error' | 'expired';
+import { ref } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import { message } from "ant-design-vue";
+import { VerifyEmailUseCase } from "../../usecases/command/verifyemail.use-case";
+import { container } from "tsyringe";
+import { ResendEmailUseCase } from "../../usecases/command/resendemail.use-case";
+type VerificationStatus = "verifying" | "success" | "error" | "expired";
 
 export function useEmailVerification() {
   const route = useRoute();
   const router = useRouter();
 
-  const status = ref<VerificationStatus>('verifying');
-  const errorMessage = ref('');
+  const status = ref<VerificationStatus>("verifying");
+  const errorMessage = ref("");
   const isRequesting = ref(false);
   const isSending = ref(false);
   const showEmailModal = ref(false);
-  const emailForResend = ref('');
+  const emailForResend = ref("");
 
   const verifyEmail = async (token: string) => {
     try {
-      status.value = 'verifying';
-      const response = await fetch('/api/email/verify', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token })
-      });
+      const _verifyEmailuseCase = await container.resolve(VerifyEmailUseCase);
+      status.value = "verifying";
+      await _verifyEmailuseCase.execute(token);
 
-      if (response.ok) {
-        const data = await response.json();
-        if (data.success) {
-          status.value = 'success';
-          message.success('ຢືນຢັນອີເມວສຳເລັດ!');
-        } else {
-          throw new Error(data.message || 'Verification failed');
-        }
-      } else if (response.status === 410) {
-        status.value = 'expired';
-      } else {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Network error');
-      }
+      status.value = "success";
+      message.success("ຢືນຢັນອີເມວສຳເລັດ!");
     } catch (error: any) {
-      console.error('Verification error:', error);
-      if (error.message.includes('expired') || error.message.includes('invalid')) {
-        status.value = 'expired';
+      console.error("Verification error:", error);
+      if (
+        error.message.includes("expired") ||
+        error.message.includes("invalid")
+      ) {
+        status.value = "expired";
       } else {
-        status.value = 'error';
-        errorMessage.value = error.message || 'ການຢືນຢັນລົ້ມເຫຼວ';
+        status.value = "error";
+        errorMessage.value = error.message || "ການຢືນຢັນລົ້ມເຫຼວ";
       }
     }
   };
 
   const requestNewLink = () => {
-    emailForResend.value = route.query.email as string || '';
+    emailForResend.value = (route.query.email as string) || "";
     showEmailModal.value = true;
   };
 
   const sendNewVerificationLink = async () => {
     if (!emailForResend.value) {
-      return message.error('ກະລຸນາປ້ອນອີເມວ');
+      return message.error("ກະລຸນາປ້ອນອີເມວ");
     }
 
     if (!isValidEmail(emailForResend.value)) {
-      return message.error('ທີ່ຢູ່ອີເມວບໍ່ຖືກຕ້ອງ');
+      return message.error("ທີ່ຢູ່ອີເມວບໍ່ຖືກຕ້ອງ");
     }
 
     try {
       isSending.value = true;
+      const _resendEmailuseCase = await container.resolve(ResendEmailUseCase);
 
-      const response = await fetch('/api/email/resend-verification', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: emailForResend.value })
-      });
+      await _resendEmailuseCase.execute(emailForResend.value);
 
-      if (response.ok) {
-        message.success('ສົ່ງລິ້ງຢືນຢັນໃໝ່ແລ້ວ');
-        showEmailModal.value = false;
-      } else {
-        throw new Error('Failed to send verification link');
-      }
+      message.success("ສົ່ງລິ້ງຢືນຢັນໃໝ່ແລ້ວ");
+      showEmailModal.value = false;
+      
     } catch (error: any) {
-      console.error('Resend error:', error);
-      message.error('ສົ່ງລິ້ງໃໝ່ລົ້ມເຫຼວ');
+      console.error("Resend error:", error);
+      message.error("ສົ່ງລິ້ງໃໝ່ລົ້ມເຫຼວ");
     } finally {
       isSending.value = false;
     }
   };
 
   const goToLogin = () => {
-    router.push('/login');
+    router.push("/login");
   };
 
   const isValidEmail = (email: string): boolean => {
@@ -105,6 +89,6 @@ export function useEmailVerification() {
     verifyEmail,
     requestNewLink,
     sendNewVerificationLink,
-    goToLogin
+    goToLogin,
   };
 }
