@@ -78,11 +78,10 @@ export default class TeacherFormService {
         { required: true, message: t("validation.required_password") },
         { min: 6, message: t("validation.password_min") },
       ],
-      specialization: [
-        { type: "number", message: t("validation.valid_specialization") },
+      experience: [
         { required: true, message: t("validation.required_specialization") },
       ],
-      experience: [
+      specialization: [
         { required: true, message: t("validation.required_experience") },
       ],
       education: [
