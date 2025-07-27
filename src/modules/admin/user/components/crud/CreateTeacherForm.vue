@@ -4,10 +4,10 @@
     <template #icon>
       <UserAddOutlined />
     </template>
-    {{ $t('teacher.add') }}
+    {{ $t('common.add') }}
   </a-button>
 
-  <a-modal v-model:open="service.open_create.value" :title="$t('teacher.modal_title')" @ok="service.create"
+  <a-modal v-model:open="service.open_create.value" :title="$t('table.modal_title')" @ok="service.create"
     @cancel="() => (service.open_create.value = false, service.resetForm())" :confirm-loading="service.creat_loading.value" :ok-text="$t('common.submit')"
     :cancel-text="$t('common.cancel')" width="550px">
 
@@ -16,12 +16,12 @@
       <div>
         <h3>
           <UserOutlined />
-          {{ $t('teacher.personal_info') || 'Personal Information' }}
+          {{ $t('table.personal_info') || 'Personal Information' }}
         </h3>
 
         <a-row :gutter="[24, 16]">
           <a-col :xs="24" :sm="12">
-            <a-form-item name="name" :label="$t('teacher.name')">
+            <a-form-item name="name" :label="$t('table.name')">
               <a-input v-model:value="service.form_create.name" size="large" placeholder="Enter first name">
                 <template #prefix>
                   <UserOutlined />
@@ -31,7 +31,7 @@
           </a-col>
 
           <a-col :xs="24" :sm="12">
-            <a-form-item name="surname" :label="$t('teacher.surname')">
+            <a-form-item name="surname" :label="$t('table.surname')">
               <a-input v-model:value="service.form_create.surname" size="large" placeholder="Enter last name">
                 <template #prefix>
                   <UserOutlined />
@@ -42,7 +42,7 @@
         </a-row>
          <a-row :gutter="[24, 16]">
           <a-col :xs="24" :sm="12">
-            <a-form-item name="email" :label="$t('teacher.email')">
+            <a-form-item name="email" :label="$t('table.email')">
               <a-input v-model:value="service.form_create.email" type="email" size="large"
                 placeholder="Enter email address">
                 <template #prefix>
@@ -53,7 +53,7 @@
           </a-col>
 
           <a-col :xs="24" :sm="12">
-            <a-form-item name="password" :label="$t('teacher.password')">
+            <a-form-item name="password" :label="$t('table.password')">
               <a-input-password v-model:value="service.form_create.password" size="large" placeholder="Enter password">
                 <template #prefix>
                   <LockOutlined />

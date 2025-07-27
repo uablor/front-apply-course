@@ -8,18 +8,18 @@
     <a-form ref="formRef" :model="composable.form_edit" :rules="composable.rules" layout="vertical">
       <a-row :gutter="16">
         <a-col :span="12">
-          <a-form-item name="name" :label="$t('role.name')">
+          <a-form-item name="name" :label="$t('table.name')">
             <a-input v-model:value="composable.form_edit.name" />
           </a-form-item>
         </a-col>
 
         <a-col :span="12">
-          <a-form-item name="surname" :label="$t('role.display_name')">
+          <a-form-item name="surname" :label="$t('table.display_name')">
             <a-input v-model:value="composable.form_edit.display_name" />
           </a-form-item>
         </a-col>
       </a-row>
-      <a-form-item name="permissions" :label="$t('admin.permissions')">
+      <a-form-item name="permissions" :label="$t('table.permissions')">
       <a-select v-model:value="composable.form_edit.permissions" mode="multiple" :placeholder="'ເລືອກ Permissions'"
            :options="composable.permissions.value" :field-names="{ label: 'name', value: 'id' }"
            style="width: 100%" :maxTagCount="5" />

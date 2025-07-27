@@ -1,7 +1,7 @@
 <template>
         <a-input-search
             v-model:value="store.query.search"
-            placeholder="Search student"
+            :placeholder="$t('student.search')"
             style="width: 200px"
             @search="handleSearch"
         />

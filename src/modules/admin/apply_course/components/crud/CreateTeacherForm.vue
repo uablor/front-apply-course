@@ -3,12 +3,12 @@
     <template #icon>
       <UserAddOutlined />
     </template>
-    {{ $t('course.add') }}
+    {{ $t('common.add') }}
   </a-button>
 
   <a-modal
     v-model:open="service.open_create.value"
-    :title="$t('course.modal_title')"
+    :title="$t('apply_course.modal_title')"
     @ok="service.create"
     @cancel="() => (service.open_create.value = false, service.resetForm())"
     :confirm-loading="service.creat_loading.value"
@@ -26,11 +26,11 @@
       <a-row :gutter="[16, 16]">
         <!-- Reason -->
         <a-col :xs="24" :sm="12">
-          <a-form-item name="title" :label="$t('course.title')">
+          <a-form-item name="title" :label="$t('apply_course.title')">
             <a-input
               v-model:value="service.form_create.reason"
               size="large"
-              :placeholder="$t('course.enter_title')"
+              :placeholder="$t('apply_course.enter_title')"
               allow-clear
             />
           </a-form-item>
@@ -38,13 +38,13 @@
 
         <!-- Teacher -->
         <a-col :xs="24" :sm="12">
-          <a-form-item name="teacher" :label="$t('course.teacher')">
+          <a-form-item name="teacher" :label="$t('apply_course.teacher')">
             <a-select
               v-model:value="service.form_create.student"
               :options="studentSotre.state.data"
               :field-names="{ label: 'name', value: 'id' }"
               size="large"
-              :placeholder="$t('course.select_teacher')"
+              :placeholder="$t('apply_course.select_teacher')"
               allow-clear
             />
           </a-form-item>
@@ -52,13 +52,13 @@
 
         <!-- Course Category -->
         <a-col :xs="24" :sm="12">
-          <a-form-item name="category" :label="$t('course.category')">
+          <a-form-item name="category" :label="$t('apply_course.category')">
             <a-select
               v-model:value="service.form_create.course"
               :options="courseStore.state.data"
               :field-names="{ label: 'title', value: 'id' }"
               size="large"
-              :placeholder="$t('course.select_category')"
+              :placeholder="$t('apply_course.select_category')"
               allow-clear
             />
           </a-form-item>
@@ -66,21 +66,21 @@
 
         <!-- Status -->
         <a-col :xs="24" :sm="12">
-          <a-form-item name="status" :label="$t('course.status')">
+          <a-form-item name="status" :label="$t('apply_course.status')">
             <a-select
               v-model:value="service.form_create.status"
               size="large"
-              :placeholder="$t('course.select_status')"
+              :placeholder="$t('apply_course.select_status')"
               allow-clear
             >
               <a-select-option :value="ApplyCourseStatus.APPROVED">
-                {{ $t('course.status_approved') }}
+                {{ $t('apply_course.status_approved') }}
               </a-select-option>
               <a-select-option :value="ApplyCourseStatus.PENDING">
-                {{ $t('course.status_pending') }}
+                {{ $t('apply_course.status_pending') }}
               </a-select-option>
               <a-select-option :value="ApplyCourseStatus.REJECTED">
-                {{ $t('course.status_rejected') }}
+                {{ $t('apply_course.status_rejected') }}
               </a-select-option>
             </a-select>
           </a-form-item>
