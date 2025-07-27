@@ -4,7 +4,7 @@
       <div>
         <a-typography-title :level="3">
           <UserOutlined style="margin-right: 10px" />
-          User Form
+          Course Completion Form
         </a-typography-title>
       </div>
       <div class="create-search-student">
