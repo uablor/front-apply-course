@@ -12,30 +12,30 @@ export class CourseCompletionHttpRepository implements ICourseCompletionReposito
   constructor(@inject(AxiosApi) private readonly _api: AxiosApi) {}
 
   async create(payload: CreateCourseCompletionModel): Promise<string> {
-      const res = await this._api.axios.post("/course", payload);
+      const res = await this._api.axios.post("/course-completion-records", payload);
       return res.data;
   }
 
   async update(data: UpdateCourseCompletionModel): Promise<FindCourseCompletionModel> {
     const { id, ...rest } = data;
     console.log(id, rest);
-    const res = await this._api.axios.patch("/course/" + id, rest);
+    const res = await this._api.axios.patch("/course-completion-records/" + id, rest);
     return res.data;
   }
 
 
   async delete(id: number, type: DeleteType): Promise<string> {
-    const res = await this._api.axios.delete(`/course/${type}/${id}`);
+    const res = await this._api.axios.delete(`/course-completion-records/${type}/${id}`);
     return res.data;
   }
   async restore(id: number): Promise<string> {
-    const res = await this._api.axios.patch(`/course/restore/${id}`);
+    const res = await this._api.axios.patch(`/course-completion-records/restore/${id}`);
     return res.data;
   }
 
 
   async findAll(query: IPaginationQuery): Promise<IResponse<FindCourseCompletionModel>> {
-    const res = await this._api.axios.get("/course", { params: query  });
+    const res = await this._api.axios.get("/course-completion-records", { params: query  });
     // console.log("asdfadsf",res.data);
     return res.data;
   }

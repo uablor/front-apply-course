@@ -10,14 +10,14 @@
                         <ExclamationCircleOutlined class="warning-icon" />
                     </div>
                     <div class="header-text">
-                        <h3 class="modal-title">{{ $t('student.delete_confirmation') }}</h3>
-                        <p class="modal-subtitle">{{ $t('student.action_irreversible') }}</p>
+                        <h3 class="modal-title">{{ $t('common.delete_confirmation') }}</h3>
+                        <p class="modal-subtitle">{{ $t('common.action_irreversible') }}</p>
                     </div>
                 </div>
 
                 <div class="modal-body">
                     <div class="warning-message">
-                        <p class="confirm-text">{{ $t('student.confirm_delete_message') }}</p>
+                        <p class="confirm-text">{{ $t('common.confirm_delete_message') }}</p>
 
                         <div class="delete-options">
                             <div class="option-card" :class="{ active: composable.isHardDelete?.value }">
@@ -26,15 +26,15 @@
                                     <div class="option-content">
                                         <div class="option-header">
                                             <DeleteOutlined class="option-icon hard" />
-                                            <span class="option-title">{{ $t('student.hard_delete') }}</span>
+                                            <span class="option-title">{{ $t('common.hard_delete') }}</span>
                                         </div>
-                                        <span class="option-description">{{ $t('student.hard_delete_desc') }}</span>
+                                        <span class="option-description">{{ $t('common.hard_delete_desc') }}</span>
                                     </div>
                                 </a-radio>
                             </div>
                         </div>
 
-                        <a-alert v-if="composable.isHardDelete?.value" :message="$t('student.hard_delete_warning')"
+                        <a-alert v-if="composable.isHardDelete?.value" :message="$t('common.hard_delete_warning')"
                             type="error" show-icon class="hard-delete-warning" />
                     </div>
                 </div>

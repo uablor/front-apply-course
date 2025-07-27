@@ -22,7 +22,7 @@ export interface CourseCompletionModel {
   total_study_hours: number | null;
 }
 
-export interface CreateCourseCompletionModel extends Omit<CourseCompletionModel, "id"> {
+export interface CreateCourseCompletionModel extends Omit<CourseCompletionModel, "id"|'price'> {
 
 
 }

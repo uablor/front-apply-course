@@ -21,7 +21,7 @@ import { CourseCompletionStatus, type CreateCourseCompletionModel, type UpdateCo
 import { CourseCompletionCreateUseCase } from "../usecases/command/create.use-case";
 
 @injectable()
-export default class CourseFormService {
+export default class CourseCompletionFormService {
   t = useI18n().t;
   store = useCourseCompletionStore();
 
@@ -115,13 +115,6 @@ export default class CourseFormService {
         ellipsis: true,
       },
       {
-        title: this.t("table.status"),
-        dataIndex: "status",
-        key: "status",
-        width: 130,
-        ellipsis: true,
-      },
-      {
         title: this.t("table.completion_date"),
         dataIndex: "completion_date",
         key: "completion_date",
@@ -147,13 +140,6 @@ export default class CourseFormService {
         title: this.t("table.created_by"),
         dataIndex:[ "created_by", "name"],
         key: "created_by_name",
-        width: 160,
-        ellipsis: true,
-      },
-      {
-        title: this.t("table.description"),
-        dataIndex: "description",
-        key: "description",
         width: 160,
         ellipsis: true,
       },
@@ -192,7 +178,7 @@ export default class CourseFormService {
   form_create = reactive<CreateCourseCompletionModel>({
     apply_courses: null,
     total_score: null,
-    price: null,
+    // price: null,
     is_certified: false,
     status: CourseCompletionStatus.INCOMPLETED,
     completion_date: "",
@@ -215,7 +201,7 @@ export default class CourseFormService {
   resetForm = () => {
     this.form_create.apply_courses = 0;
     this.form_create.total_score = 0;
-    this.form_create.price = 0;
+    // this.form_create.price = 0;
     this.form_create.is_certified = false;
     this.form_create.status = CourseCompletionStatus.INCOMPLETED;
     this.form_create.completion_date = "";
@@ -265,20 +251,16 @@ export default class CourseFormService {
   };
 
   showModal = async (record: any, statues?: any) => {
+    console.log("update",record);
     Object.assign(this.form_edit, {
       id: record.id,
-      teacher: record.teacher.id,
-      category: record.category.id,
-      title: record.title,
-      price: record.price,
-      max_student: record.max_student,
-      start_date: parseDate(record.start_date),
-      end_date: parseDate(record.end_date),
-      registration_start_date: parseDate(record.registration_start_date),
-      registration_end_date: parseDate(record.registration_end_date),
-      description: record.description,
-      status: statues ? statues : record.status,
-      duration_hours: record.duration_hours,
+      apply_courses: record.apply_course.id,
+      total_score: record.total_score,
+      is_certified: record.is_certified,
+      status: record.status,
+      completion_date: parseDate(record.completion_date),
+      certificate_issued_date: parseDate(record.certificate_issued_date),
+      total_study_hours: record.total_study_hours,
     });
 
     if (!statues) {

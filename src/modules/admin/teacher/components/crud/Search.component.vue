@@ -1,5 +1,5 @@
 <template>
-    <a-input-search v-model:value="store.query.search" placeholder="Search student" style="width: 200px"
+    <a-input-search v-model:value="store.query.search" :placeholder="$t('common.search')" style="width: 200px"
         @search="handleSearch" />
 </template>
 

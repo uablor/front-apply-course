@@ -16,7 +16,7 @@
         <a-col :xs="24" :sm="12">
           <a-form-item name="apply_courses" :label="$t('completion.apply_course')">
             <a-select v-model:value="service.form_create.apply_courses" :options="applyCourseStore.state.data"
-              :placeholder="'ເລືອກຄອສ'" :field-names="{ label: 'course.title', value: 'id' }" size="large" />
+              :field-names="{ label: 'reason', value: 'id' }" :placeholder="'ເລືອກຄອສ'" size="large" />
           </a-form-item>
         </a-col>
 
@@ -67,6 +67,7 @@
               <a-select-option :value="CourseCompletionStatus.PASSED">ຜ່ານ</a-select-option>
               <a-select-option :value="CourseCompletionStatus.FAILED">ບໍ່ຜ່ານ</a-select-option>
               <a-select-option :value="CourseCompletionStatus.INCOMPLETED">ຍັງບໍ່ສຳເລັດ</a-select-option>
+              <a-select-option :value="CourseCompletionStatus.WITHDRAWN">ຖອນອອກ </a-select-option>
             </a-select>
           </a-form-item>
         </a-col>
@@ -98,9 +99,9 @@ const service = container.resolve(UserAdminFormService);
 const formRef = ref<FormInstance | null>(null);
 
 
-
 onMounted(() => {
   service.formRef = formRef;
+
 });
 
 </script>

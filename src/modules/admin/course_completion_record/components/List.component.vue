@@ -17,10 +17,20 @@
         <span>{{ index + 1 }}</span>
       </template>
       <template v-if="column.key === 'apply_course_price'">
-        <a-tag
-          :color="record.apply_course_price > 1000000 ? '#ff9900' : record.price > 0 ? 'green' : '#333'"
-        >
+        <a-tag :color="record.apply_course_price > 1000000 ? '#ff9900' : record.price > 0 ? 'green' : '#333'">
           {{ formatCurrency(record.price, 'LAK') }}
+        </a-tag>
+      </template>
+      <template v-if="column.key === 'is_certified'">
+        <a-tag :color="record.is_certified === true ? '#ff9900' : record.is_certified === false ? 'green' : '#333'">
+          {{ record.is_certified === true ? 'Yes' : 'No' }}
+        </a-tag>
+      </template>
+      <template v-if="column.key === 'status'">
+        <a-tag
+          :color="record.status === CourseCompletionStatus.PASSED ? 'green' : record.status === CourseCompletionStatus.FAILED ? 'red' :
+            record.status === CourseCompletionStatus.WITHDRAWN ? 'blue' : record.status === CourseCompletionStatus.FAILED ? 'orange' : '#333'">
+          {{ record.status }}
         </a-tag>
       </template>
 
@@ -68,23 +78,26 @@
 import { onMounted } from 'vue';
 import { container } from 'tsyringe';
 import DeleteComponent from './crud/Delete.component.vue';
-import UserAdminFormService from '../composables/course.composable';
+import CourseCompletionFormService from '../composables/course.composable';
 import UpdateStudentForm from './crud/UpdateTeacherForm.vue';
 import { GetType, Status } from '@/shared/enums/pagination.query.enum';
 import { formatCurrency } from '@/shared/utils/formatCurrency';
 import { useCourseCompletionStore } from '../stores/use-Couese-Comple.store';
 import ApplyCourseFormService from '../../apply_course/composables/course.composable';
+import { CourseCompletionStatus } from '../domain/models/course_completion.model';
+import { useApplyCourseStore } from '../../apply_course/stores/use-Apply-course.store';
 const store = useCourseCompletionStore();
-const customerList = container.resolve(UserAdminFormService);
+const customerList = container.resolve(CourseCompletionFormService);
 const applyComposable = container.resolve(ApplyCourseFormService)
 console.log("customerList", store.query);
-
+const applyCourseStore = useApplyCourseStore()
 onMounted(async () => {
   await customerList.fetchPage(store.query);
   await applyComposable.fetchPage({
     type: GetType.ALL,
     is_active: Status.ACTIVE
   });
+    console.log("apply course",applyCourseStore.state.data);
 
 })
 </script>

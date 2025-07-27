@@ -1,12 +1,12 @@
 <template>
   <a-select v-model:value="store.query.is_active" style="width: 120px" @change="handleFilterChange">
-    <a-select-option :value="Status.ACTIVE">ໃໍ່ຊ້ງານໄດ້</a-select-option>
-    <a-select-option :value="Status.INACTIVE">ຖັງຂິ້ເຫືີ</a-select-option>
+    <a-select-option :value="Status.ACTIVE">{{ $t('common.active') }}</a-select-option>
+    <a-select-option :value="Status.INACTIVE">{{ $t('common.inactive') }}</a-select-option>
   </a-select>
 
   <a-select v-model:value="store.query.sort" style="width: 120px" @change="handleFilterChange">
-    <a-select-option :value="sortType.ASC">ລ່າສຸດ</a-select-option>
-    <a-select-option :value="sortType.DESC">ເກົ່າສຸດ</a-select-option>
+    <a-select-option :value="sortType.ASC">{{ $t('common.asc') }}</a-select-option>
+    <a-select-option :value="sortType.DESC">{{ $t('common.desc') }}</a-select-option>
   </a-select>
 </template>
 <script lang="ts" setup>
