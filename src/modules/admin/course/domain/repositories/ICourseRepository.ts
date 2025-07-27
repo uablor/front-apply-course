@@ -1,7 +1,6 @@
 import type { IPaginationQuery } from "@/domain/models/IPaginationQuery.interface"
 import type { IResponse } from "@/domain/interfaces/Ipagination.interface"
 import type { DeleteType } from "@/shared/enums/deletetype.enum"
-import type { GetType } from "@/shared/enums/pagination.query.enum"
 import type { CreateCourseModel, FindCourseModel, UpdateCourseModel } from "../models/course.model"
 
 

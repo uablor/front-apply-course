@@ -1,4 +1,4 @@
-import type { address } from "@/domain/models/address.entity";
+
 import type { timestamp } from "@/domain/models/best.timestamp.entity";
 import type { FindTeacherModel } from "@/modules/admin/teacher/domain/models/teacher.model";
 

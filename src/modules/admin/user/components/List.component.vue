@@ -127,12 +127,11 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, reactive } from 'vue';
+import { onMounted } from 'vue';
 import { container } from 'tsyringe';
 import DeleteComponent from './crud/Delete.component.vue';
 import UserAdminFormService from '../composables/user-admin.composable';
 import UpdateStudentForm from './crud/UpdateTeacherForm.vue';
-import { DeleteType } from '@/shared/enums/deletetype.enum';
 import { GetType, Status } from '@/shared/enums/pagination.query.enum';
 import { useUserAdminStore } from '../stores/use-useradmin.store';
 import { useRoleStore } from '../../role/stores/use-role.store';

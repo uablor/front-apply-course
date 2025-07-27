@@ -83,7 +83,7 @@ import { container } from 'tsyringe';
 import DeleteComponent from './crud/Delete.component.vue';
 import TeacherFormService from '../composables/teacher.composable';
 import UpdateStudentForm from './crud/UpdateTeacherForm.vue';
-import { DeleteType } from '@/shared/enums/deletetype.enum';
+// import { DeleteType } from '@/shared/enums/deletetype.enum';
 import { Status } from '@/shared/enums/pagination.query.enum';
 import { useTeacherStore } from '../stores/use-teacher.store';
 

@@ -27,6 +27,7 @@ import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { Dropdown as ADropdown, Button as AButton, Menu as AMenu, MenuItem as AMenuItem } from 'ant-design-vue'
 import { DownOutlined } from '@ant-design/icons-vue'
+import type { Key } from 'ant-design-vue/es/_util/type'
 
 // Types
 interface Language {
@@ -69,14 +70,14 @@ const currentLanguage = computed(() => {
 })
 
 // Methods
-const handleLanguageChange = ({ key }: { key: string }) => {
+const handleLanguageChange = ({ key }: { key: Key }) => {
   if (key !== currentLocale.value) {
-    locale.value = key
+    locale.value = key as string
     // Store preference in localStorage
-    localStorage.setItem('preferred-language', key)
+    localStorage.setItem('preferred-language', key as string)
     
     // Emit event for parent components if needed
-    emits('languageChanged', key)
+    emits('languageChanged', key as string)
   }
 }
 

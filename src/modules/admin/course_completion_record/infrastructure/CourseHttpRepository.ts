@@ -3,7 +3,6 @@ import { inject, injectable } from "tsyringe";
 import type { IPaginationQuery } from "@/domain/models/IPaginationQuery.interface";
 import type { IResponse } from "@/domain/interfaces/Ipagination.interface";
 import type { DeleteType } from "@/shared/enums/deletetype.enum";
-import type { GetType } from "@/shared/enums/pagination.query.enum";
 import type { CreateCourseModel, FindCourseModel, UpdateCourseModel } from "../domain/models/course_completion.model";
 import type { ICourseRepository } from "../domain/repositories/ICourseRepository";
 

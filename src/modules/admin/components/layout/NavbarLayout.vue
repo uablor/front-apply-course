@@ -16,8 +16,6 @@
 import LanguageSwitcher from '@shared/ui/Language_switcher.component.vue'
 import LogoutView from '@/modules/auth/views/LogoutView.vue';
 import { ref } from "vue";
-import { useRouter } from 'vue-router';
-const router = useRouter();
 import {
     MenuUnfoldOutlined,
     MenuFoldOutlined,

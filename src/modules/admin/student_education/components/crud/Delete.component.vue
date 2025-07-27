@@ -65,7 +65,7 @@
 import {
     DeleteOutlined,
     ExclamationCircleOutlined,
-    RestOutlined
+  
 } from '@ant-design/icons-vue'
 import { Status } from '@/shared/enums/pagination.query.enum';
 import { useStudentEducationStore } from '../../stores/use-student-education.store';

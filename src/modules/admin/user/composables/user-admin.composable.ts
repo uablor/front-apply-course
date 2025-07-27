@@ -9,15 +9,7 @@ import type { Rule } from "ant-design-vue/es/form";
 
 import { container } from "tsyringe";
 import { type IPaginationQuery } from "@/domain/models/IPaginationQuery.interface";
-// import type { CreateStudentModel } from "../domain/models/student.model";
-import dayjs from "dayjs";
 import { DeleteType } from "@/shared/enums/deletetype.enum";
-// import { ProvinceFindAllUseCase } from "../usecases/query/get-all-province.use-case";
-import type { address } from "@/domain/models/address.entity";
-// import { DistrictFindUseCase } from "../usecases/query/find.district.use-case";
-// import { StudentCreateUseCase } from "../usecases/command/create-student.use.case";
-// import type { UpdateStudentModel } from "../domain/models/student.model";
-// import { StudentUpdateUseCase } from "../usecases/command/update-student.use.case";
 import type { AxiosError } from "axios";
 import type { IErrorResponse } from "@/domain/models/IErrorResponse.interface";
 import type {
@@ -31,9 +23,8 @@ import { UseradminFindAllUseCase } from "../usecases/query/get-all.use-case";
 import { UseradminUpdateUseCase } from "../usecases/command/update-user-admin.use-case";
 import { UseradminDeleteUseCase } from "../usecases/command/delete.user-admin.use-case";
 import { UseradminRestoreUseCase } from "../usecases/command/restore-user-admin.use-case";
-import { RoleFindAllUseCase } from "../../role/usecases/query/get-all.use-case";
+// import { RoleFindAllUseCase } from "../../role/usecases/query/get-all.use-case";
 import { useRoleStore } from "../../role/stores/use-role.store";
-import { GetType } from "@/shared/enums/pagination.query.enum";
 
 
 @injectable()
@@ -77,9 +68,9 @@ export default class StudentFormService {
     private readonly _restoreStudentUseCase = container.resolve(
       UseradminRestoreUseCase
     ),
-    private readonly _findRoleUseCase = container.resolve(
-      RoleFindAllUseCase
-    ),
+    // private readonly _findRoleUseCase = container.resolve(
+    //   RoleFindAllUseCase
+    // ),
     
   ) {
     const { t } = useI18n();

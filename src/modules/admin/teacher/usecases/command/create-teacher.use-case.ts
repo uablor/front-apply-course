@@ -2,7 +2,7 @@
 import { inject, injectable } from 'tsyringe';
 
 import type { CreateTeacherModel } from '../../domain/models/teacher.model';
-import { TeacherUseCase } from '../best.use-case';
+// import { TeacherUseCase } from '../best.use-case';
 import type { ITeacherRepository } from '../../domain/repositories/ITeacherRepository';
 import { TeacherHttpRepository } from '../../infrastructure/TeacherHttpRepository';
 

@@ -1,4 +1,4 @@
-import type { address } from "@/domain/models/address.entity";
+// import type { address } from "@/domain/models/address.entity";
 import type { timestamp } from "@/domain/models/best.timestamp.entity";
 
 export  enum educationStatus{

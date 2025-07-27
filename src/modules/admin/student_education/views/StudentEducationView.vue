@@ -8,9 +8,9 @@
 
 <script setup lang="ts">
 // import FilterComponent from '../components/crud/Filter.component.vue';
-import { UserOutlined } from '@ant-design/icons-vue';
+// import { UserOutlined } from '@ant-design/icons-vue';
 import ListTeacherForm from '../components/ListForm.vue';
-import CreateTeacherForm from '@/modules/admin/student_education/components/crud/CreateForm.vue';
+// import CreateTeacherForm from '@/modules/admin/student_education/components/crud/CreateForm.vue';
 // import SearchComponent from '../components/crud/Search.component.vue';
 </script>
 

@@ -130,8 +130,8 @@ import { ref, onMounted } from 'vue';
 import { container } from 'tsyringe';
 import type { FormInstance } from 'ant-design-vue';
 import TeacherFormService from '../../composables/teacher.composable';
-import { Gender } from '@/shared/enums/gender.enum';
-import { useTeacherStore } from '../../stores/use-teacher.store';
+// import { Gender } from '@/shared/enums/gender.enum';
+// import { useTeacherStore } from '../../stores/use-teacher.store';
 import {
   UserAddOutlined,
   UserOutlined,
@@ -140,11 +140,9 @@ import {
   BookOutlined,
   TrophyOutlined,
   StarOutlined,
-  CalendarOutlined,
-  CaretDownOutlined
 } from '@ant-design/icons-vue';
 
-const store = useTeacherStore();
+// const store = useTeacherStore();
 const service = container.resolve(TeacherFormService);
 const formRef = ref<FormInstance | null>(null);
 

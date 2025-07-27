@@ -22,7 +22,6 @@
           <a-button 
             type="primary" 
             size="large" 
-            @click="goToDashboard"
             class="action-button"
           >
             <template #icon>
@@ -97,7 +96,7 @@
         </div>
         <h2 class="title">ກວດສອບອີເມວຂອງທ່ານ</h2>
         <p class="subtitle">
-          ເຮົາໄດ້ສົ່ງລິ້ງຢືນຢັນໄປທີ່: <strong>{{ userEmail }}</strong>
+          ເຮົາໄດ້ສົ່ງລິ້ງຢືນຢັນໄປທີ່: <strong></strong>
         </p>
         
         <div class="email-instructions">
@@ -110,7 +109,7 @@
             <template #description>
               <ul class="instruction-list">
                 <li>ເປີດອີເມວຂອງທ່ານ</li>
-                <li>ຊອກຫາອີເມວຈາກ {{ appName }}</li>
+                <li>ຊອກຫາອີເມວຈາກ </li>
                 <li>ກົດທີ່ລິ້ງ "ຢືນຢັນອີເມວ" ໃນອີເມວ</li>
                 <li>ທ່ານຈະຖືກນຳມາໜ້ານີ້ອັດຕະໂນມັດ</li>
               </ul>
@@ -175,11 +174,10 @@
 </template>
 <script setup lang="ts">
 import { onMounted } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { useRoute } from 'vue-router';
 import { useEmailVerification } from '../../composables/useAuth/Email.Test.componsable';
 
 const route = useRoute();
-const router = useRouter();
 
 const {
   verificationStatus,

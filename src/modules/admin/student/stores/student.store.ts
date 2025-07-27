@@ -2,7 +2,7 @@
 import { defineStore } from "pinia";
 import { reactive } from "vue";
 import type { IResponse } from "@/domain/interfaces/Ipagination.interface";
-import type { FindOneStudentModel, FindStudentModel } from "../domain/models/student.model";
+import type {  FindStudentModel } from "../domain/models/student.model";
 import {
   GetType,
   sortType,

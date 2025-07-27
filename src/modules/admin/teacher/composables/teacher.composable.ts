@@ -9,15 +9,7 @@ import type { Rule } from "ant-design-vue/es/form";
 
 import { container } from "tsyringe";
 import { type IPaginationQuery } from "@/domain/models/IPaginationQuery.interface";
-// import type { CreateStudentModel } from "../domain/models/student.model";
-import dayjs from "dayjs";
 import { DeleteType } from "@/shared/enums/deletetype.enum";
-// import { ProvinceFindAllUseCase } from "../usecases/query/get-all-province.use-case";
-import type { address } from "@/domain/models/address.entity";
-// import { DistrictFindUseCase } from "../usecases/query/find.district.use-case";
-// import { StudentCreateUseCase } from "../usecases/command/create-student.use.case";
-// import type { UpdateStudentModel } from "../domain/models/student.model";
-// import { StudentUpdateUseCase } from "../usecases/command/update-student.use.case";
 import type { AxiosError } from "axios";
 import type { IErrorResponse } from "@/domain/models/IErrorResponse.interface";
 import { TeacherFindAllUseCase } from "../usecases/query/get-all.use-case";

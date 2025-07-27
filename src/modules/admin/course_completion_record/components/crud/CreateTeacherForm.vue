@@ -113,13 +113,9 @@ import UserAdminFormService from '../../composables/course.composable';
 import {
   UserAddOutlined,
 } from '@ant-design/icons-vue';
-import { useCourseStore } from '../../stores/use-Course.store';
 import { useCourseCategoriesStore } from '@/modules/admin/course_categorie/stores/use-course-categories.store';
 import { useTeacherStore } from '@/modules/admin/teacher/stores/use-teacher.store';
 import { formatPrice } from '@/shared/utils/formatCurrency';
-// import { formatCurrency } from '@/shared/utils/formatCurrency';
-
-const store = useCourseStore();
 const categoriesStore = useCourseCategoriesStore();
 const teacherSotre = useTeacherStore()
 const service = container.resolve(UserAdminFormService);

@@ -1,7 +1,7 @@
 import { inject, injectable } from "tsyringe";
 import type { IStudentRepository } from "../../domain/repositories/IStudentRepository";
 import { StudentHttpRepository } from "../../infrastructure/StudentHttpRepository";
-import { DeleteType } from "@/shared/enums/deletetype.enum";
+// import { DeleteType } from "@/shared/enums/deletetype.enum";
 
 @injectable()
 export class RestoreStudentUseCase {

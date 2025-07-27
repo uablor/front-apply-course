@@ -10,7 +10,7 @@ import type { Rule } from "ant-design-vue/es/form";
 import { container } from "tsyringe";
 import { StudentFindAllUseCase } from "../usecases/query/get-all.use-case";
 import { type IPaginationQuery } from "@/domain/models/IPaginationQuery.interface";
-import type { CreateStudentModel, FindStudentModel } from "../domain/models/student.model";
+import type { CreateStudentModel } from "../domain/models/student.model";
 import dayjs from "dayjs";
 import { DeleteType } from "@/shared/enums/deletetype.enum";
 import { ProvinceFindAllUseCase } from "../usecases/query/get-all-province.use-case";
@@ -24,7 +24,7 @@ import type { IErrorResponse } from "@/domain/models/IErrorResponse.interface";
 import { StudentDeleteUseCase } from "../usecases/command/delete-student.use-case";
 import { RestoreStudentUseCase } from "../usecases/command/restore-student.use-case";
 import router from "@/router";
-import { StudentFindOneUseCase } from "../usecases/query/find-one.use-case";
+// import { StudentFindOneUseCase } from "../usecases/query/find-one.use-case";
 
 @injectable()
 export default class StudentFormService {

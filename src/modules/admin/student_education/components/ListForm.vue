@@ -190,9 +190,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted } from 'vue';
+import { onMounted } from 'vue';
 import { useRouter } from 'vue-router';
-import { message, Empty } from 'ant-design-vue';
+import {  Empty } from 'ant-design-vue';
 import { container } from 'tsyringe';
 import StudentEducationFormService from '../composables/studenteducation.composable';
 import { useStudentEducationStore } from '../stores/use-student-education.store';
@@ -208,10 +208,8 @@ import {
   BookOutlined,
   EditOutlined,
   DeleteOutlined,
-  PlusOutlined,
   CheckCircleOutlined,
   ClockCircleOutlined,
-  PrinterOutlined,
   IdcardOutlined
 } from '@ant-design/icons-vue';
 
@@ -237,17 +235,17 @@ const getCompletedCount = () => {
   return store.student.data.educations.filter(edu => edu.status !== educationStatus.studying).length;
 };
 
-const handleEditProfile = () => {
-  message.info('Edit profile functionality to be implemented');
-};
+// const handleEditProfile = () => {
+//   message.info('Edit profile functionality to be implemented');
+// };
 
-const handlePrintProfile = () => {
-  window.print();
-};
+// const handlePrintProfile = () => {
+//   window.print();
+// };
 
-const handleAddEducation = () => {
-  useStudentComposable.showModal(1)
-};
+// const handleAddEducation = () => {
+//   useStudentComposable.showModal(1)
+// };
 
 onMounted(async () => {
   const id = router.currentRoute.value.query.id as string;

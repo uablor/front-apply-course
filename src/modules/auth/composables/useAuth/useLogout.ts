@@ -4,11 +4,10 @@ import { notification } from "ant-design-vue";
 import type { AxiosError } from "axios";
 import { useRouter } from "vue-router";
 import type { IErrorResponse } from "@/domain/models/IErrorResponse.interface";
-import { useAuthStore } from "../../stores/authStore";
+// import { useAuthStore } from "../../stores/authStore";
 
 export function useLogout() {
   const form = reactive<AuthLoginPayload>({ email: "", password: "" });
-  const authStore = useAuthStore();
   const router = useRouter();
   const isLogoutModalVisible = ref<boolean>(false);
   const loding_logout = ref<boolean>(false);

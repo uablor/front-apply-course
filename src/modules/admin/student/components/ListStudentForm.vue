@@ -100,7 +100,7 @@ import DeleteComponent from './crud/Delete.component.vue';
 import { useCustomerStore } from '../stores/student.store';
 import StudentFormService from '../composables/student.composable';
 import UpdateStudentForm from './crud/UpdateStudentForm.vue';
-import { DeleteType } from '@/shared/enums/deletetype.enum';
+// import { DeleteType } from '@/shared/enums/deletetype.enum';
 import { Status } from '@/shared/enums/pagination.query.enum';
 const hoveredRow = ref<number | null>(null);
 

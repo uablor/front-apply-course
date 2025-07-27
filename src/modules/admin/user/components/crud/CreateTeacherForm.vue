@@ -77,21 +77,15 @@ import { ref, onMounted } from 'vue';
 import { container } from 'tsyringe';
 import type { FormInstance } from 'ant-design-vue';
 import UserAdminFormService from '../../composables/user-admin.composable';
-import { Gender } from '@/shared/enums/gender.enum';
 import {
   UserAddOutlined,
   UserOutlined,
   MailOutlined,
   LockOutlined,
-  BookOutlined,
-  TrophyOutlined,
-  StarOutlined,
-  CalendarOutlined,
-  CaretDownOutlined
 } from '@ant-design/icons-vue';
-import { useUserAdminStore } from '../../stores/use-useradmin.store';
+// import { useUserAdminStore } from '../../stores/use-useradmin.store';
 
-const store = useUserAdminStore();
+// const store = useUserAdminStore();
 const service = container.resolve(UserAdminFormService);
 const formRef = ref<FormInstance | null>(null);
 

@@ -1,6 +1,6 @@
 
 import { inject, injectable } from 'tsyringe';
-import { TeacherUseCase } from '../best.use-case';
+// import { TeacherUseCase } from '../best.use-case';
 import { TeacherHttpRepository } from '../../infrastructure/TeacherHttpRepository';
 import type { ITeacherRepository } from '../../domain/repositories/ITeacherRepository';
 

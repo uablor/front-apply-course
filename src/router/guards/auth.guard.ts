@@ -1,7 +1,6 @@
 import type { Router } from "vue-router";
-import { GET_ROLES } from "@utils/const";
 export function authGuard(router: Router) {
-  router.beforeEach((to, from, next) => {
+  router.beforeEach((to, _from, next) => {
     const token = localStorage.getItem("token");
 
     if (to.meta.skipAuthCheck) {
