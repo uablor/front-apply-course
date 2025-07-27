@@ -82,14 +82,6 @@
           </a-form-item>
         </a-col>
 
-        <a-col :span="24">
-          <a-form-item name="status" :label="$t('course.status')">
-            <a-select v-model:value="service.form_create.status" :options="[
-              { label: 'Open', value: 'open' },
-              { label: 'Closed', value: 'closed' }
-            ]" size="large" placeholder="Select status" />
-          </a-form-item>
-        </a-col>
 
         <a-col :span="24">
           <a-form-item name="description" :label="$t('course.description')">

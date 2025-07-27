@@ -7,13 +7,13 @@
       <!-- Basic Information -->
       <a-row :gutter="16">
         <a-col :span="12">
-          <a-form-item name="name" :label="$t('admin.name')">
+          <a-form-item name="name" :label="$t('table.name')">
             <a-input v-model:value="composable.form_edit.name" />
           </a-form-item>
         </a-col>
 
         <a-col :span="12">
-          <a-form-item name="surname" :label="$t('admin.surname')">
+          <a-form-item name="surname" :label="$t('table.surname')">
             <a-input v-model:value="composable.form_edit.surname" />
           </a-form-item>
         </a-col>
@@ -21,7 +21,7 @@
 
       <a-row :gutter="16">
         <a-col :span="24">
-          <a-form-item name="roles" :label="$t('admin.roles')">
+          <a-form-item name="roles" :label="$t('table.roles')">
             <a-select v-model:value="composable.form_edit.roles" mode="multiple" :placeholder="'ເລືອກ Roles'"
               :options="storeRole.state.data" :field-names="{ label: 'name', value: 'id' }" style="width: 100%" :maxTagCount="5" />
           </a-form-item>
@@ -30,7 +30,7 @@
 
       <a-row :gutter="16">
         <a-col :span="24">
-          <a-form-item name="permissions" :label="$t('admin.permissions')">
+          <a-form-item name="permissions" :label="$t('table.permissions')">
 
             <a-select v-model:value="composable.form_edit.permissions" mode="multiple"
               :placeholder="'ເລືອກ Permissions'" :options="roleConposable.permissions.value"

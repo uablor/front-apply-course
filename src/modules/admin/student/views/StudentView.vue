@@ -4,7 +4,7 @@
       <div>
         <a-typography-title :level="3">
           <UserOutlined style="margin-right: 10px" />
-          Student Form
+          {{ $t('student.title') }}
         </a-typography-title>
       </div>
       <div class="create-search-student">

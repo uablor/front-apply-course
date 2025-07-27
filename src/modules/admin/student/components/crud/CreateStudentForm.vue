@@ -37,7 +37,7 @@
 
       <a-row :gutter="16">
         <a-col :span="12">
-          <a-form-item name="gender" :label="$t('student.gender.label')">
+          <a-form-item name="gender" :label="$t('student.gender.title')">
             <a-select v-model:value="service.form_create.gender" placeholder="Select gender">
               <a-select-option :value="Gender.MALE">{{ $t('student.gender.male') }}</a-select-option>
               <a-select-option :value="Gender.FEMALE">{{ $t('student.gender.female') }}</a-select-option>
@@ -55,16 +55,16 @@
       <a-row :gutter="16">
         <a-col :span="12">
           <a-form-item :rules="[{ required: true, message: $t('student.error.required_district') }]"
-            :label="$t('student.province')">
-            <a-select v-model:value="service.address_id.province_id" :placeholder="$t('student.select_province')"
+            :label="$t('common.province')">
+            <a-select v-model:value="service.address_id.province_id" :placeholder="$t('common.select_province')"
               :options="store.address.province" :field-names="{ label: 'name', value: 'id' }" show-search
               option-filter-prop="label" @change="service.fetchDistricts" />
           </a-form-item>
         </a-col>
         <a-col :span="12">
-          <a-form-item :label="$t('student.district')"
+          <a-form-item :label="$t('common.district')"
             :rules="[{ required: true, message: $t('validation.required_district') }]">
-            <a-select v-model:value="service.address_id.district_id" :placeholder="$t('student.select_district')"
+            <a-select v-model:value="service.address_id.district_id" :placeholder="$t('common.select_district')"
               :options="store.address.district" :field-names="{ label: 'name', value: 'id' }" show-search
               option-filter-prop="label" />
           </a-form-item>

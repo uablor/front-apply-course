@@ -39,6 +39,7 @@ export default class CourseFormService {
   find_loading = ref<boolean>(false);
   create_loading = ref<boolean>(false);
   update_loading = ref<boolean>(false);
+  update_loading_status = ref<Record<number, boolean>>({});
   isDeleting = ref<boolean>(false);
 
   rules: Record<string, Rule[]>;
@@ -137,13 +138,13 @@ export default class CourseFormService {
 
     this.columns = [
       {
-        title: this.t("table.index"),
+        title: this.t("course.index"),
         key: "index",
         fixed: "left",
         width: 70,
       },
       {
-        title: this.t("table.title"),
+        title: this.t("course.title"),
         dataIndex: "title",
         key: "title",
         fixed: "left",
@@ -151,7 +152,7 @@ export default class CourseFormService {
         ellipsis: true,
       },
       {
-        title: this.t("table.teacher"),
+        title: this.t("course.teacher"),
         dataIndex: ["teacher", "name"],
         key: "teacher",
         fixed: "left",
@@ -160,28 +161,28 @@ export default class CourseFormService {
       },
 
       {
-        title: this.t("table.max_student"),
+        title: this.t("course.max_student"),
         dataIndex: "max_student",
         key: "max_student",
         width: 100,
         ellipsis: true,
       },
       {
-        title: this.t("table.duration_hours"),
+        title: this.t("course.duration_hours"),
         dataIndex: "duration_hours",
         key: "duration_hours",
         width: 100,
         ellipsis: true,
       },
       {
-        title: this.t("table.price"),
+        title: this.t("course.price"),
         dataIndex: "price",
         key: "price",
         width: 130,
         ellipsis: true,
       },
       {
-        title: this.t("table.registration_start_date"),
+        title: this.t("course.registration_start"),
         dataIndex: "registration_start_date",
         key: "registration_start_date",
         width: 150,
@@ -189,56 +190,56 @@ export default class CourseFormService {
       },
 
       {
-        title: this.t("table.registration_end_date"),
+        title: this.t("course.registration_end"),
         dataIndex: "registration_end_date",
         key: "registration_end_date",
         width: 160,
         ellipsis: true,
       },
       {
-        title: this.t("table.start_date"),
+        title: this.t("course.start_date"),
         dataIndex: "start_date",
         key: "start_date",
         width: 160,
         ellipsis: true,
       },
       {
-        title: this.t("table.end_date"),
+        title: this.t("course.end_date"),
         dataIndex: "end_date",
         key: "end_date",
         width: 160,
         ellipsis: true,
       },
       {
-        title: this.t("table.description"),
+        title: this.t("course.description"),
         dataIndex: "description",
         key: "description",
         width: 160,
         ellipsis: true,
       },
       {
-        title: this.t("table.status"),
+        title: this.t("course.status"),
         dataIndex: "status",
         key: "status",
         width: 160,
         ellipsis: true,
       },
       {
-        title: this.t("table.createdAt"),
+        title: this.t("common.createdAt"),
         dataIndex: "createdAt",
         key: "createdAt",
         width: 150,
         ellipsis: true,
       },
       {
-        title: this.t("table.updatedAt"),
+        title: this.t("common.updatedAt"),
         dataIndex: "updatedAt",
         key: "updatedAt",
         width: 150,
         ellipsis: true,
       },
       {
-        title: this.t("table.action"),
+        title: this.t("common.action"),
         key: "action",
         fixed: "right",
         width: 170,
@@ -259,7 +260,7 @@ export default class CourseFormService {
     registration_start_date: "",
     registration_end_date: "",
     description: "",
-    status: CourseStatus.OPEN,
+    status:CourseStatus.CLOSED,
     duration_hours: null,
   });
 
@@ -408,7 +409,7 @@ export default class CourseFormService {
 
       const isValid = await formRef.validate();
       if (!isValid) return;
-
+      this.form_create.status = CourseStatus.CLOSED;
       await this._createUseCase.execute(this.form_create);
       message.success("ສ້າງສຳເລັດ");
       this.resetForm();
@@ -490,9 +491,14 @@ export default class CourseFormService {
   cancel_restore = async () => {};
 
   toggleStatus = async (checked: boolean, record: any) => {
+    this.update_loading_status.value[record.id] = true;
     const newStatus = checked ? CourseStatus.OPEN : CourseStatus.CLOSED;
-
+    try{
     await this.showModal(record, newStatus);
     this.udpate(true);
+    }
+     finally {
+      this.update_loading_status.value[record.id] = false;
+    }
   };
 }

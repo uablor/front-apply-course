@@ -11,7 +11,7 @@ export const studentRoutes: RouteRecordRaw[] = [
     }
   },
   {
-    path: 'studedfdffffdfnt',
+    path: 'student/completion_record',
     name: 'admin.completion_record',
     component: () => import('../views/StudentView.vue'),
     meta: {

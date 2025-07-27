@@ -150,7 +150,7 @@ export default class StudentFormService {
         title: this.t("table.createdAt"),
         dataIndex: "createdAt",
         key: "createdAt",
-        width: 160,
+        width: 180,
         ellipsis: true,
       },
       {

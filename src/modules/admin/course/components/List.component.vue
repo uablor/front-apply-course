@@ -25,10 +25,10 @@
       </template>
 <template v-if="column.key === 'status'">
   <a-switch
-    :checked="record.status === CourseStatus.OPEN"
+    :checked="record.status === CourseStatus.OPEN "
     :checked-children="$t('common.open')"
     :un-checked-children="$t('common.close')"
-    :loading="customerList.update_loading.value"
+    :loading="customerList.update_loading_status.value[record.id] === true"
     @change="(val: boolean) => customerList.toggleStatus(val, record)"
   />
 </template>
