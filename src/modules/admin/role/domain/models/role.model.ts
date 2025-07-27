@@ -6,7 +6,7 @@ export interface RoleModel {
   id: number;
   name: string;
   display_name: string;
-  permissions: PermissionModel[];
+  permissions: PermissionModel[] | number[];
 }
 
 export interface CreateRoleModel extends Omit<RoleModel, "id"> {

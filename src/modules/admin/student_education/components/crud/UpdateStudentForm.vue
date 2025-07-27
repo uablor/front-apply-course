@@ -13,20 +13,20 @@
         </a-col>
 
         <a-col :span="12">
-          <a-form-item name="surname" :label="$t('student.surname')">
+          <a-form-item name="surname" :label="$t('student.field_of_study')">
             <a-input v-model:value="composable.form_edit.field_of_study" />
           </a-form-item>
         </a-col>
       </a-row>
       <a-row :gutter="16">
         <a-col :span="12">
-          <a-form-item name="name" :label="$t('student.level')">
+          <a-form-item name="name" :label="$t('student.work_experience')">
             <a-input v-model:value="composable.form_edit.work_experience" />
           </a-form-item>
         </a-col>
 
         <a-col :span="12">
-          <a-form-item name="surname" :label="$t('student.surname')">
+          <a-form-item name="surname" :label="$t('student.current_occupation')">
             <a-input v-model:value="composable.form_edit.current_occupation" />
           </a-form-item>
         </a-col>

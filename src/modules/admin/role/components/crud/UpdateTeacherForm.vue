@@ -21,7 +21,8 @@
       </a-row>
       <a-form-item name="permissions" :label="$t('table.permissions')">
       <a-select v-model:value="composable.form_edit.permissions" mode="multiple" :placeholder="'ເລືອກ Permissions'"
-           :options="composable.permissions.value" :field-names="{ label: 'name', value: 'id' }"
+           :options="permissionOptions" :field-names="{ label: 'name', value: 'id' }"
+           @change="handleSelectChange"
            style="width: 100%" :maxTagCount="5" />
       </a-form-item>
     </a-form>
@@ -31,13 +32,26 @@
 <script lang="ts" setup>
 import roleFormService from '../../composables/role.composable';
 import type { FormInstance } from 'ant-design-vue';
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 
 const { composable } = defineProps<{
   composable: roleFormService
 }>();
 const formRef = ref<FormInstance | null>(null);
 
+function handleSelectChange(selected: any[]) {
+  if (selected.includes("ALL")) {
+    composable.form_edit.permissions = composable.permissions.value.map((p) => p.id);
+  }
+}
+
+const permissionOptions = computed(() => [
+  {
+    id: "ALL",
+    name: "Select All",
+  },
+  ...composable.permissions.value,
+]);
 onMounted(async () => {
   composable.formRef = formRef;
   await composable.getPermissions()

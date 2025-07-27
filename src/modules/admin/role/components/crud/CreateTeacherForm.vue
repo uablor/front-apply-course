@@ -45,7 +45,11 @@
         <a-form-item name="permissions" :label="$t('admin.permissions')">
 
           <a-select v-model:value="service.form_create.permissions" mode="multiple" :placeholder="'ເລືອກ Permissions'"
-            :options="service.permissions.value" :field-names="{ label: 'name', value: 'id' }" style="width: 100%" :maxTagCount="5" />
+            :options="permissionOptions" 
+            @change="handleSelectChange"
+            :field-names="{ label: 'name', value: 'id' }" style="width: 100%" 
+            >
+          </a-select>
 
         </a-form-item>
 
@@ -64,7 +68,7 @@
 
 
 <script lang="ts" setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import { container } from 'tsyringe';
 import type { FormInstance } from 'ant-design-vue';
 import RoleFormService from '../../composables/role.composable';
@@ -76,6 +80,19 @@ import {
 const service = container.resolve(RoleFormService);
 const formRef = ref<FormInstance | null>(null);
 
+function handleSelectChange(selected: any[]) {
+  if (selected.includes("ALL")) {
+    service.form_create.permissions = service.permissions.value.map((p) => p.id);
+  }
+}
+
+const permissionOptions = computed(() => [
+  {
+    id: "ALL",
+    name: "Select All",
+  },
+  ...service.permissions.value,
+]);
 
 onMounted(async () => {
   service.formRef = formRef;

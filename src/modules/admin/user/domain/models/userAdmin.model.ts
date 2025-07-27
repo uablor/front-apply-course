@@ -20,6 +20,6 @@ export interface FindUserAdminModel extends UserAdminModel, timestamp {
 }
 
 export interface UpdateUserAdminModel extends UserAdminModel {
-  permissions: string[];
+  permissions: string[] | number[];
   roles: string[];
 }
