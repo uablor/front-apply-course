@@ -3,19 +3,20 @@ import { inject, injectable } from "tsyringe";
 import type { IPaginationQuery } from "@/domain/models/IPaginationQuery.interface";
 import type { IResponse } from "@/domain/interfaces/Ipagination.interface";
 import type { DeleteType } from "@/shared/enums/deletetype.enum";
-import type { CreateCourseModel, FindCourseModel, UpdateCourseModel } from "../domain/models/course_completion.model";
-import type { ICourseRepository } from "../domain/repositories/ICourseRepository";
+import type { ICourseCompletionRepository } from "../domain/repositories/ICourseCompletionRepository";
+import type { CreateCourseCompletionModel, FindCourseCompletionModel, UpdateCourseCompletionModel } from "../domain/models/course_completion.model";
 
 @injectable()
-export class CourseHttpRepository implements ICourseRepository {
+
+export class CourseCompletionHttpRepository implements ICourseCompletionRepository{
   constructor(@inject(AxiosApi) private readonly _api: AxiosApi) {}
 
-  async create(payload: CreateCourseModel): Promise<string> {
+  async create(payload: CreateCourseCompletionModel): Promise<string> {
       const res = await this._api.axios.post("/course", payload);
       return res.data;
   }
 
-  async update(data: UpdateCourseModel): Promise<FindCourseModel> {
+  async update(data: UpdateCourseCompletionModel): Promise<FindCourseCompletionModel> {
     const { id, ...rest } = data;
     console.log(id, rest);
     const res = await this._api.axios.patch("/course/" + id, rest);
@@ -33,7 +34,7 @@ export class CourseHttpRepository implements ICourseRepository {
   }
 
 
-  async findAll(query: IPaginationQuery): Promise<IResponse<FindCourseModel>> {
+  async findAll(query: IPaginationQuery): Promise<IResponse<FindCourseCompletionModel>> {
     const res = await this._api.axios.get("/course", { params: query  });
     // console.log("asdfadsf",res.data);
     return res.data;

@@ -84,9 +84,9 @@ import {
 import type AdminUserFormService from '../../composables/course.composable'
 
 import { Status } from '@/shared/enums/pagination.query.enum';
-import { useCourseStore } from '../../stores/use-Course.store';
+import { useCourseCompletionStore } from '../../stores/use-Couese-Comple.store';
 
-const store = useCourseStore()
+const store = useCourseCompletionStore()
 
 defineProps<{
     composable: AdminUserFormService

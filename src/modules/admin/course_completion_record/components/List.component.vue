@@ -16,44 +16,13 @@
       <template v-if="column.key === 'index'">
         <span>{{ index + 1 }}</span>
       </template>
-      <template v-if="column.key === 'price'">
+      <template v-if="column.key === 'apply_course_price'">
         <a-tag
-          :color="record.price > 1000000 ? '#ff9900' : record.price > 0 ? 'green' : '#333'"
+          :color="record.apply_course_price > 1000000 ? '#ff9900' : record.price > 0 ? 'green' : '#333'"
         >
           {{ formatCurrency(record.price, 'LAK') }}
         </a-tag>
       </template>
-<template v-if="column.key === 'status'">
-  <a-switch
-    :checked="record.status === CourseStatus.OPEN"
-    :checked-children="$t('common.open')"
-    :un-checked-children="$t('common.close')"
-    :loading="customerList.update_loading.value"
-    @change="(val: boolean) => customerList.toggleStatus(val, record)"
-  />
-</template>
-      <template v-if="column.key === 'registration_start_date'">
-        <a-tag color="blue">
-          {{ record.registration_start_date }}
-        </a-tag>
-      </template>
-      <template v-if="column.key === 'registration_end_date'">
-        <a-tag color="red">
-          {{ record.registration_end_date }}
-        </a-tag>
-      </template>
-      <template v-if="column.key === 'start_date'">
-        <a-tag color="blue">
-          {{ record.start_date }}
-        </a-tag>
-      </template>
-      
-      <template v-if="column.key === 'end_date'">
-        <a-tag color="red">
-          {{ record.end_date }}
-        </a-tag>
-      </template>
-
 
 
 
@@ -96,37 +65,23 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted } from 'vue';
+import { onMounted, reactive } from 'vue';
 import { container } from 'tsyringe';
 import DeleteComponent from './crud/Delete.component.vue';
 import UserAdminFormService from '../composables/course.composable';
 import UpdateStudentForm from './crud/UpdateTeacherForm.vue';
 import { GetType, Status } from '@/shared/enums/pagination.query.enum';
-import { useRoleStore } from '../../role/stores/use-role.store';
-import RoleFormService from '../../role/composables/role.composable';
-import { useCourseStore } from '../stores/use-Course.store';
-import StudentFormService from '../../course_categorie/composables/course-categories.composable';
-import TeacherFormService from '../../teacher/composables/teacher.composable';
 import { formatCurrency } from '@/shared/utils/formatCurrency';
-import { CourseStatus } from '../domain/models/course_completion.model';
-const store = useCourseStore();
-const storeRole = useRoleStore()
+import { useCourseCompletionStore } from '../stores/use-Couese-Comple.store';
+import ApplyCourseFormService from '../../apply_course/composables/course.composable';
+const store = useCourseCompletionStore();
 const customerList = container.resolve(UserAdminFormService);
-const roleList = container.resolve(RoleFormService);
-const courseList = container.resolve(StudentFormService);
-const teacher = container.resolve(TeacherFormService)
+const applyComposable = container.resolve(ApplyCourseFormService)
 console.log("customerList", store.query);
 
 onMounted(async () => {
   await customerList.fetchPage(store.query);
-  storeRole.query.type = GetType.ALL;
-  await roleList.fetchPage(storeRole.query);
-
-  await courseList.fetchPage({
-    type: GetType.ALL,
-    is_active: Status.ACTIVE
-  });
-  await teacher.fetchPage({
+  await applyComposable.fetchPage({
     type: GetType.ALL,
     is_active: Status.ACTIVE
   });

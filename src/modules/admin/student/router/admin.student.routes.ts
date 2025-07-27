@@ -10,12 +10,4 @@ export const studentRoutes: RouteRecordRaw[] = [
       guestOnly: true
     }
   },
-  {
-    path: 'student/completion_record',
-    name: 'admin.completion_record',
-    component: () => import('../views/StudentView.vue'),
-    meta: {
-      guestOnly: true
-    }
-  },
 ]

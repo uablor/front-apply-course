@@ -11,26 +11,19 @@ import { type IPaginationQuery } from "@/domain/models/IPaginationQuery.interfac
 import { DeleteType } from "@/shared/enums/deletetype.enum";
 import type { AxiosError } from "axios";
 import type { IErrorResponse } from "@/domain/models/IErrorResponse.interface";
-import { useRoleStore } from "../../role/stores/use-role.store";
-import { CourseCreateUseCase } from "../usecases/command/create.use-case";
-import { CourseFindAllUseCase } from "../usecases/query/get-all.use-case";
-import { CourseUpdateUseCase } from "../usecases/command/update.use-case";
-import { CourseDeleteUseCase } from "../usecases/command/delete.use-case";
-import { CourseRestoreUseCase } from "../usecases/command/restore.use-case";
-import {
-  CourseStatus,
-  type CreateCourseModel,
-  type UpdateCourseModel,
-} from "../domain/models/course_completion.model";
-import { useCourseStore } from "../stores/use-Course.store";
-import dayjs from "dayjs";
 import { parseDate } from "@utils/format.date";
+import { useCourseCompletionStore } from "../stores/use-Couese-Comple.store";
+import { CourseCompletionFindAllUseCase } from "../usecases/query/get-all.use-case";
+import { CourseCompletionUpdateUseCase } from "../usecases/command/update.use-case";
+import { CourseCompletionDeleteUseCase } from "../usecases/command/delete.use-case";
+import { CourseCompletionRestoreUseCase } from "../usecases/command/restore.use-case";
+import { CourseCompletionStatus, type CreateCourseCompletionModel, type UpdateCourseCompletionModel } from "../domain/models/course_completion.model";
+import { CourseCompletionCreateUseCase } from "../usecases/command/create.use-case";
 
 @injectable()
 export default class CourseFormService {
   t = useI18n().t;
-  store = useCourseStore();
-  roleStore = useRoleStore();
+  store = useCourseCompletionStore();
 
   open_edit = ref<boolean>(false);
   open_create = ref<boolean>(false);
@@ -53,12 +46,12 @@ export default class CourseFormService {
   delete_id = ref<number>(0);
 
   constructor(
-    private readonly _FindAllUseCase = container.resolve(CourseFindAllUseCase),
+    private readonly _FindAllUseCase = container.resolve(CourseCompletionFindAllUseCase),
 
-    private readonly _createUseCase = container.resolve(CourseCreateUseCase),
-    private readonly _updateUseCase = container.resolve(CourseUpdateUseCase),
-    private readonly _deleteUseCase = container.resolve(CourseDeleteUseCase),
-    private readonly _restoreUseCase = container.resolve(CourseRestoreUseCase)
+    private readonly _createUseCase = container.resolve(CourseCompletionCreateUseCase),
+    private readonly _updateUseCase = container.resolve(CourseCompletionUpdateUseCase),
+    private readonly _deleteUseCase = container.resolve(CourseCompletionDeleteUseCase),
+    private readonly _restoreUseCase = container.resolve(CourseCompletionRestoreUseCase)
   ) {
     const { t } = useI18n();
 
@@ -73,59 +66,7 @@ export default class CourseFormService {
       max_student: [
         { required: true, message: t("validation.required_specialization") },
       ],
-      start_date: [
-        { required: true, message: t("validation.required_education") },
-        {
-          validator: (_, value) => {
-            if (!value || !this.form_create.end_date) return Promise.resolve();
-            return dayjs(value).isBefore(this.form_create.end_date)
-              ? Promise.resolve()
-              : Promise.reject(
-                  new Error(t("validation.start_must_before_end"))
-                );
-          },
-        },
-      ],
-      end_date: [
-        { required: true, message: t("validation.required_education") },
-        {
-          validator: (_, value) => {
-            if (!value || !this.form_create.start_date)
-              return Promise.resolve();
-            return dayjs(value).isAfter(this.form_create.start_date)
-              ? Promise.resolve()
-              : Promise.reject(new Error(t("validation.end_must_after_start")));
-          },
-        },
-      ],
-      registration_start_date: [
-        { required: true, message: t("validation.required_education") },
-        {
-          validator: (_, value) => {
-            if (!value || !this.form_create.registration_end_date)
-              return Promise.resolve();
-            return dayjs(value).isBefore(this.form_create.registration_end_date)
-              ? Promise.resolve()
-              : Promise.reject(
-                  new Error(t("validation.start_must_before_end"))
-                );
-          },
-        },
-      ],
-      registration_end_date: [
-        { required: true, message: t("validation.required_education") },
-        {
-          validator: (_, value) => {
-            if (!value || !this.form_create.registration_start_date)
-              return Promise.resolve();
-            return dayjs(value).isAfter(
-              this.form_create.registration_start_date
-            )
-              ? Promise.resolve()
-              : Promise.reject(new Error(t("validation.end_must_after_start")));
-          },
-        },
-      ],
+      
       description: [
         { required: true, message: t("validation.required_education") },
       ],
@@ -143,69 +84,69 @@ export default class CourseFormService {
         width: 70,
       },
       {
-        title: this.t("table.title"),
-        dataIndex: "title",
-        key: "title",
+        title: this.t("table.apply_course"),
+        dataIndex: ["apply_course", "price"],
+        key: "apply_course_price",
         fixed: "left",
         width: 150,
         ellipsis: true,
       },
       {
-        title: this.t("table.teacher"),
-        dataIndex: ["teacher", "name"],
-        key: "teacher",
+        title: this.t("table.apply_course"),
+        dataIndex: ["apply_course", "status"],
+        key: "apply_course_status",
         fixed: "left",
         width: 150,
         ellipsis: true,
       },
 
       {
-        title: this.t("table.max_student"),
-        dataIndex: "max_student",
-        key: "max_student",
+        title: this.t("table.total_score"),
+        dataIndex: "total_score",
+        key: "total_scoretotal_score",
         width: 100,
         ellipsis: true,
       },
       {
-        title: this.t("table.duration_hours"),
-        dataIndex: "duration_hours",
-        key: "duration_hours",
+        title: this.t("table.is_certified"),
+        dataIndex: "is_certified",
+        key: "is_certified",
         width: 100,
         ellipsis: true,
       },
       {
-        title: this.t("table.price"),
-        dataIndex: "price",
-        key: "price",
+        title: this.t("table.status"),
+        dataIndex: "status",
+        key: "status",
         width: 130,
         ellipsis: true,
       },
       {
-        title: this.t("table.registration_start_date"),
-        dataIndex: "registration_start_date",
-        key: "registration_start_date",
+        title: this.t("table.completion_date"),
+        dataIndex: "completion_date",
+        key: "completion_date",
         width: 150,
         ellipsis: true,
       },
 
       {
-        title: this.t("table.registration_end_date"),
-        dataIndex: "registration_end_date",
-        key: "registration_end_date",
+        title: this.t("table.certificate_issued_date"),
+        dataIndex: "certificate_issued_date",
+        key: "certificate_issued_date",
         width: 160,
         ellipsis: true,
       },
       {
-        title: this.t("table.start_date"),
-        dataIndex: "start_date",
-        key: "start_date",
+        title: this.t("table.total_study_hours"),
+        dataIndex: "total_study_hours",
+        key: "total_study_hours",
         width: 160,
         ellipsis: true,
       },
       {
-        title: this.t("table.end_date"),
-        dataIndex: "end_date",
-        key: "end_date",
+        title: this.t("table.created_by"),
+        dataIndex:[ "created_by", "name"],
+        key: "created_by_name",
         width: 160,
         ellipsis: true,
       },
@@ -248,65 +189,48 @@ export default class CourseFormService {
 
   deleteType = reactive({ softdelete: DeleteType.SOFT });
 
-  form_create = reactive<CreateCourseModel>({
-    teacher: null,
-    category: null,
-    title: "",
+  form_create = reactive<CreateCourseCompletionModel>({
+    apply_courses: null,
+    total_score: null,
     price: null,
-    max_student: null,
-    start_date: "",
-    end_date: "",
-    registration_start_date: "",
-    registration_end_date: "",
-    description: "",
-    status: CourseStatus.OPEN,
-    duration_hours: null,
+    is_certified: false,
+    status: CourseCompletionStatus.INCOMPLETED,
+    completion_date: "",
+    certificate_issued_date: "",
+    total_study_hours: null,
   });
 
-  form_edit = reactive<UpdateCourseModel>({
-    teacher: 0,
-    category: 0,
-    title: "",
-    price: 0,
-    max_student: 0,
-    start_date: "",
-    end_date: "",
-    registration_start_date: "",
-    registration_end_date: "",
-    description: "",
-    status: CourseStatus.OPEN,
-    duration_hours: 0,
+  form_edit = reactive<UpdateCourseCompletionModel>({
     id: 0,
+    apply_courses: null,
+    total_score: null,
+    price: null,
+    is_certified: false,
+    status: CourseCompletionStatus.INCOMPLETED,
+    completion_date: "",
+    certificate_issued_date: "",
+    total_study_hours: null,
   });
 
   resetForm = () => {
-    this.form_create.teacher = 0;
-    this.form_create.category = 0;
-    this.form_create.title = "";
+    this.form_create.apply_courses = 0;
+    this.form_create.total_score = 0;
     this.form_create.price = 0;
-    this.form_create.max_student = 0;
-    this.form_create.start_date = "";
-    this.form_create.end_date = "";
-    this.form_create.registration_start_date = "";
-    this.form_create.registration_end_date = "";
-    this.form_create.description = "";
-    this.form_create.status = CourseStatus.OPEN;
-    this.form_create.duration_hours = 0;
+    this.form_create.is_certified = false;
+    this.form_create.status = CourseCompletionStatus.INCOMPLETED;
+    this.form_create.completion_date = "";
+    this.form_create.certificate_issued_date = "";
+    this.form_create.total_study_hours = 0;
+
     this.form_edit.id = 0;
-    this.form_edit.teacher = 0;
-    this.form_edit.category = 0;
-    this.form_edit.title = "";
+    this.form_edit.apply_courses = 0;
+    this.form_edit.total_score = 0;
     this.form_edit.price = 0;
-    this.form_edit.max_student = 0;
-    this.form_edit.start_date = "";
-    this.form_edit.end_date = "";
-    this.form_edit.registration_start_date = "";
-
-    this.form_edit.registration_end_date = "";
-    this.form_edit.description = "";
-
-    this.form_edit.status = CourseStatus.OPEN;
-    this.form_edit.duration_hours = 0;
+    this.form_edit.is_certified = false;
+    this.form_edit.status = CourseCompletionStatus.INCOMPLETED;
+    this.form_edit.completion_date = "";
+    this.form_edit.certificate_issued_date = "";
+    this.form_edit.total_study_hours = 0; 
 
     this.delete_id.value = 0;
   };
@@ -489,10 +413,10 @@ export default class CourseFormService {
   };
   cancel_restore = async () => {};
 
-  toggleStatus = async (checked: boolean, record: any) => {
-    const newStatus = checked ? CourseStatus.OPEN : CourseStatus.CLOSED;
+  // toggleStatus = async (checked: boolean, record: any) => {
+  //   const newStatus = checked ? CourseStatus.OPEN : CourseStatus.CLOSED;
 
-    await this.showModal(record, newStatus);
-    this.udpate(true);
-  };
+  //   await this.showModal(record, newStatus);
+  //   this.udpate(true);
+  // };
 }

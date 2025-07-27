@@ -1,27 +1,16 @@
 
 import { inject, injectable } from 'tsyringe';
-import { CourseHttpRepository } from '../../infrastructure/CourseHttpRepository';
-import type { ICourseRepository } from '../../domain/repositories/ICourseRepository';
-import type { FindCourseModel, UpdateCourseModel } from '../../domain/models/course_completion.model';
-
-// @injectable()
-// export class TeacherCreateUseCase extends TeacherUseCase {
-
-//   async execute(requst: CreateTeacherModel): Promise<string> {
-
-//     const res = await this._teacherHttpRepository.create(requst);
-//     return res;
-    
-//   }
-// }
+import { CourseCompletionHttpRepository } from '../../infrastructure/CourseCompleHttpRepository';
+import type { ICourseCompletionRepository } from '../../domain/repositories/ICourseCompletionRepository';
+import type { FindCourseCompletionModel, UpdateCourseCompletionModel } from '../../domain/models/course_completion.model';
 
 @injectable()
-export class CourseUpdateUseCase {
+export class CourseCompletionUpdateUseCase {
 
   constructor(
-    @inject(CourseHttpRepository) protected _HttpRepository: ICourseRepository
+    @inject(CourseCompletionHttpRepository) protected _HttpRepository: ICourseCompletionRepository
   ) {}
-  async execute(requst: UpdateCourseModel | any): Promise<FindCourseModel> {
+  async execute(requst: UpdateCourseCompletionModel): Promise<FindCourseCompletionModel> {
 
     const res = await this._HttpRepository.update(requst);
     return res;

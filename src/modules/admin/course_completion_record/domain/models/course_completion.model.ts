@@ -1,37 +1,36 @@
-
+import type { address } from "@/domain/models/address.entity";
 import type { timestamp } from "@/domain/models/best.timestamp.entity";
+import type { FindApplyCourseModel } from "@/modules/admin/apply_course/domain/models/apply_course.model";
 import type { FindTeacherModel } from "@/modules/admin/teacher/domain/models/teacher.model";
+import type { FindUserAdminModel } from "@/modules/admin/user/domain/models/userAdmin.model";
 
-export enum CourseStatus{
-  OPEN = "open",
-  CLOSED = "closed",
-
+export enum CourseCompletionStatus {
+  PASSED = "passed",
+  FAILED = "failed",
+  WITHDRAWN = "withdrawn",
+  INCOMPLETED = "incompleted",
 }
-export interface CourseModel {
+export interface CourseCompletionModel {
   id: number;
-  teacher: number | null;                    
-  category: number | null;                   
-  title: string;                      
-  price:  number | null;                     
-  max_student: number | null;              
-  start_date: string;                
-  end_date: string;                  // วันที่สิ้นสุดการเรียน (เช่น "2025-09-15")
-  registration_start_date: string;  // วันที่เริ่มลงทะเบียน
-  registration_end_date: string;    // วันที่สิ้นสุดการลงทะเบียน
-  description: string;               // คำอธิบายคอร์ส
-  status: CourseStatus;        // สถานะคอร์ส ("open" หรือ "closed")
-  duration_hours: number | null;            // ระยะเวลาการเรียน (ชั่วโมง)
+  apply_courses: number | null;
+  total_score: number | null;
+  price?: number | null;
+  is_certified: boolean;
+  status: CourseCompletionStatus;
+  completion_date: string;
+  certificate_issued_date: string;
+  total_study_hours: number | null;
 }
 
-export interface CreateCourseModel extends Omit<CourseModel, "id"> {
+export interface CreateCourseCompletionModel extends Omit<CourseCompletionModel, "id"> {
 
 
 }
 
-export interface FindCourseModel extends Omit<CourseModel, "teacher"|"category">, timestamp {
-    teacher: FindTeacherModel,
-    category: FindCourseModel,
+export interface FindCourseCompletionModel extends Omit<CourseCompletionModel, "apply_courses">, timestamp {
+apply_course: FindApplyCourseModel,
+created_by:FindUserAdminModel,
 }
 
-export interface UpdateCourseModel extends CourseModel {
+export interface UpdateCourseCompletionModel extends CourseCompletionModel {
 }

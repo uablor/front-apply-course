@@ -51,8 +51,8 @@
             <a-menu-item key="admin.apply_course">
                 <router-link :to="{ name: 'admin.apply_course' }">{{ $t('sidebar.apply_courses') }}</router-link>
             </a-menu-item>
-            <a-menu-item key="admin.completion_record">
-                <router-link :to="{ name: 'admin.completion_record' }">{{ $t('sidebar.completion_records')
+            <a-menu-item key="admin.course_completion_record">
+                <router-link :to="{ name: 'admin.course_completion_record' }">{{ $t('sidebar.completion_records')
                     }}</router-link>
             </a-menu-item>
         </a-sub-menu>
@@ -81,7 +81,7 @@ const routeToSubmenuMap: Record<string, string> = {
     'admin.course': '/admin/course_categorie',
     'admin.course_categorie': '/admin/course_categorie',
     'admin.apply_course': 'apply',
-    'admin.completion_record': 'apply'
+    'admin.course_completion_record': 'apply'
 };
 
 watch(

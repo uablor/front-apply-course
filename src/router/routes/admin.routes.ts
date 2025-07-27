@@ -9,6 +9,7 @@ import { CourseCategoriesRoutes } from "@/modules/admin/course_categorie/router/
 import { StudentEducationRoutes } from "@/modules/admin/student_education/router/admin.teacher.routes";
 import { CourseRoutes } from "@/modules/admin/course/router/course.routes";
 import { ApplyCourseRoutes } from "@/modules/admin/apply_course/router/apply.course.routes";
+import { CourseCompletionRoutes } from "@/modules/admin/course_completion_record/router/course-comple.routes";
 export const adminRoutes: RouteRecordRaw[] = [
   {
     path: "/admin",
@@ -23,6 +24,7 @@ export const adminRoutes: RouteRecordRaw[] = [
       ...CourseRoutes,
       ...StudentEducationRoutes,
       ...ApplyCourseRoutes,
+      ...CourseCompletionRoutes,
       
 
       {

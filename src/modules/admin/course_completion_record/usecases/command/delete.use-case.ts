@@ -1,14 +1,14 @@
 import { inject, injectable } from "tsyringe";
 import { DeleteType } from "@/shared/enums/deletetype.enum";
-import { CourseHttpRepository } from "../../infrastructure/CourseHttpRepository";
-import type { ICourseRepository } from "../../domain/repositories/ICourseRepository";
+import { CourseCompletionHttpRepository } from "../../infrastructure/CourseCompleHttpRepository";
+import type { ICourseCompletionRepository } from "../../domain/repositories/ICourseCompletionRepository";
 
 
 @injectable()
-export class CourseDeleteUseCase {
+export class CourseCompletionDeleteUseCase {
 
   constructor(
-    @inject(CourseHttpRepository) protected _HttpRepository: ICourseRepository
+    @inject(CourseCompletionHttpRepository) protected _HttpRepository: ICourseCompletionRepository
   ) {}
 
   async execute(id: number, type: DeleteType) {

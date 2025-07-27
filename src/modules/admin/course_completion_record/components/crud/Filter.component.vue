@@ -13,9 +13,9 @@
 import UserAdminFormService from '../../composables/course.composable';
 import { container } from 'tsyringe';
 import { sortType, Status } from '@/shared/enums/pagination.query.enum';
-import { useCourseStore } from '../../stores/use-Course.store';
+import { useCourseCompletionStore } from '../../stores/use-Couese-Comple.store';
 
-const store = useCourseStore();
+const store = useCourseCompletionStore();
 const userAdminService = container.resolve(UserAdminFormService);
 
 const handleFilterChange = () => {

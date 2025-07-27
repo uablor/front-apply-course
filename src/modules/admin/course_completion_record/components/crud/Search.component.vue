@@ -6,10 +6,10 @@
 <script setup lang="ts">
 import UserAdminFormService from '../../composables/course.composable';
 import { container } from 'tsyringe';
-import { useCourseStore } from '../../stores/use-Course.store';
+import { useCourseCompletionStore } from '../../stores/use-Couese-Comple.store';
 
 const UserAdminService = container.resolve(UserAdminFormService);
-const store = useCourseStore();
+const store = useCourseCompletionStore();
 
 const handleSearch = () => {
     store.query = { ...store.query, search: store.query.search };

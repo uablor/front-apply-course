@@ -1,8 +1,8 @@
 
 import { inject, injectable } from 'tsyringe';
-import type { ICourseRepository } from '../../domain/repositories/ICourseRepository';
-import { CourseHttpRepository } from '../../infrastructure/CourseHttpRepository';
-import type { CreateCourseModel } from '../../domain/models/course_completion.model';
+import type { ICourseCompletionRepository } from '../../domain/repositories/ICourseCompletionRepository';
+import { CourseCompletionHttpRepository } from '../../infrastructure/CourseCompleHttpRepository';
+import type { CreateCourseCompletionModel } from '../../domain/models/course_completion.model';
 
 // @injectable()
 // export class TeacherCreateUseCase extends TeacherUseCase {
@@ -16,12 +16,12 @@ import type { CreateCourseModel } from '../../domain/models/course_completion.mo
 // }
 
 @injectable()
-export class CourseCreateUseCase {
+export class CourseCompletionCreateUseCase {
 
   constructor(
-    @inject(CourseHttpRepository) protected _HttpRepository: ICourseRepository
+    @inject(CourseCompletionHttpRepository) protected _HttpRepository: ICourseCompletionRepository
   ) {}
-  async execute(requst: CreateCourseModel): Promise<string> {
+  async execute(requst: CreateCourseCompletionModel): Promise<string> {
 
     const res = await this._HttpRepository.create(requst);
     return res;
