@@ -80,7 +80,7 @@
 
 
 <script lang="ts" setup>
-import { ref, onMounted, computed } from 'vue';
+import { ref, onMounted } from 'vue';
 import { container } from 'tsyringe';
 import type { FormInstance } from 'ant-design-vue';
 import UserAdminFormService from '../../composables/course.composable';
@@ -88,11 +88,11 @@ import UserAdminFormService from '../../composables/course.composable';
 import {
   UserAddOutlined,
 } from '@ant-design/icons-vue';
-import { useCourseCompletionStore } from '../../stores/use-Couese-Comple.store';
+// import { useCourseCompletionStore } from '../../stores/use-Couese-Comple.store';
 import { useApplyCourseStore } from '@/modules/admin/apply_course/stores/use-Apply-course.store';
 import { CourseCompletionStatus } from '../../domain/models/course_completion.model';
 
-const store = useCourseCompletionStore();
+// const store = useCourseCompletionStore();
 const applyCourseStore = useApplyCourseStore()
 const service = container.resolve(UserAdminFormService);
 const formRef = ref<FormInstance | null>(null);

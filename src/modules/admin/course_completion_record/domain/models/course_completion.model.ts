@@ -1,7 +1,7 @@
-import type { address } from "@/domain/models/address.entity";
+// import type { address } from "@/domain/models/address.entity";
 import type { timestamp } from "@/domain/models/best.timestamp.entity";
 import type { FindApplyCourseModel } from "@/modules/admin/apply_course/domain/models/apply_course.model";
-import type { FindTeacherModel } from "@/modules/admin/teacher/domain/models/teacher.model";
+// import type { FindTeacherModel } from "@/modules/admin/teacher/domain/models/teacher.model";
 import type { FindUserAdminModel } from "@/modules/admin/user/domain/models/userAdmin.model";
 
 export enum CourseCompletionStatus {
